@@ -1,0 +1,63 @@
+
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+.cart-bounce {
+ animation: cartBounce 0.3s ease;
+}
+
+@keyframes cartBounce {
+ 0% { transform: scale(1); }
+ 50% { transform: scale(1.2); }
+ 100% { transform: scale(1); }
+}
+.scrollbar-hide {
+ scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+ display: none;
+}
+
+.price-slider {
+ -webkit-appearance: none;
+ width: 100%;
+ height: 6px;
+ border-radius: 999px;
+ background: #ffffff; /* WHITE TRACK */
+ outline: none;
+}
+
+/* Chrome / Safari track */
+.price-slider::-webkit-slider-runnable-track {
+ height: 10px;
+ border-radius: 999px;
+ background: hashtag#ffffff; /* WHITE BACKGROUND */
+}
+
+/* GREEN PROGRESS (this is trick part) */
+.price-slider {
+ background: linear-gradient(
+ to right,
+ #16a34a 0%,
+ #16a34a var(--value, 50%),
+ #f7f3f3 var(--value, 50%),
+ #f5eded 100%
+ );
+}
+
+/* THUMB (SCROLLER) */
+.price-slider::-webkit-slider-thumb {
+ -webkit-appearance: none;
+ width: 16px;
+ height: 16px;
+ background: #16a34a; /* GREEN */
+ border-radius: 50%;
+ cursor: pointer;
+ position: relative;
+ margin-top: -3px;
+}
+.main{
+background-position: center;
+background-image:url() ;
+background-size: cover;
+}
