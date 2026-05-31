@@ -24,12 +24,12 @@ const isLoading=false
  ):(
   categories.map((cat) => (
     <div className="min-w-[180px]  md:min-w-[230px] flex items-center flex-col gap-2 snap-start">
-      <div className="bg-gray-100 dark:bg-zinc-500 flex items-center justify-center w-[150px] h-[150px] rounded-full">
+      <div className="bg-gray-100 dark:bg-zinc-500 flex items-center justify-center w-[100px] h-[100px]  rounded-full">
     <img src={cat.image} 
     onClick={() =>
  setSelectedCategory(cat.slug)
  }
-    alt="image" className="w-[100px] transition-transform duration-300 cursor-pointer hover:scale-110 rounded-full h-[100px] object-center " />
+    alt="image" className="w-[80px] transition-transform duration-300 cursor-pointer hover:scale-110 rounded-full h-[80px] object-center " />
       </div>
   
  <span

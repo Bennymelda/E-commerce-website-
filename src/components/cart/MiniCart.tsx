@@ -21,17 +21,17 @@ const MiniCart = () => {
  initial={{ y: 100, opacity: 0 }}
  animate={{ y: isMiniCartOpen ? 0 : 100, opacity: isMiniCartOpen ? 1 : 0 }}
  transition={{ type: "spring", stiffness: 300, damping: 25 }}
- className="fixed bottom-5  md:right-50 h-[80px] md:left-50 right-10 left-10 bg-[#0d943f] shadow-xl rounded-xl p-4 z-50 flex items-center gap-4"
+ className="fixed bottom-25  md:right-50 h-[100px] md:h-[80px] md:left-50 md:bottom-5 right-10 left-10 bg-[#0d943f] shadow-xl rounded-xl p-4 z-50 flex items-center gap-4"
 >
  {/* LEFT: CART ITEMS */}
  {cartItems.length === 0 ? (
  <p className="text-white text-sm">Cart is empty</p>
  ) : (
- <div className="flex items-center h-[80px] gap-3 overflow-y-scroll overflow-x-auto flex-1 scrollbar-hide">
+ <div className="flex items-center  gap-3 overflow-x-scroll overflow-y-hidden flex-1 scrollbar-hide">
  {cartItems.map((item) => (
  <div
  key={item.id}
- className="relative flex items-center gap-2 whitespace-nowrap"
+ className=" flex items-center h-[80px] gap-2 shrink-0"
  >
  {/* IMAGE WRAPPER */}
  <div className="relative w-12 h-12 flex items-center justify-center bg-white rounded-full shrink-0">

@@ -43,7 +43,7 @@ export const ToastProvider = ({
  <div
  key={toast.id}
  className={`
- px-8 py-10 rounded rounded-l-2xl  text-black shadow-sm
+ px-4 md:px-8 py-5 md:py-10 rounded rounded-l-2xl  text-black shadow-sm
  ${
  toast.type === "error"
  ? "border-red-500 border-l-5 bg-white"

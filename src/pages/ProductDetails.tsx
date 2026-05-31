@@ -9,11 +9,12 @@ import { FaHeart } from "react-icons/fa";
 import AddToCartButton from "../components/home/AddToCartButton";
 import { useToast } from "../hooks/useToast";
 import Footer from "../components/layout/Footer";
+import { useNavigate } from "react-router-dom";
 export default function ProductDetails() {
  const { id } = useParams();
 const { showToast } = useToast();
  const product = products.find((p) => p.id === id);
-
+const navigate=useNavigate()
  const { toggleWishlist, isInWishlist } = useWishlist();
 const handleWishlist = (id: string) => {
  toggleWishlist(id);
@@ -52,8 +53,30 @@ const handleWishlist = (id: string) => {
  }
 
  return (
- <div className="min-h-screen bg-white dark:bg-black px-5  ">
+ <div className="min-h-screen md:mt-22 bg-white dark:bg-black px-5  ">
+<div className="text-sm text-gray-500 mb-6">
+ <span
+ className="cursor-pointer hover:text-green-600"
+ onClick={() => navigate("/")}
+ >
+ Home
+ </span>
 
+ {" / "}
+
+ <span
+ className="cursor-pointer hover:text-green-600"
+ onClick={() => navigate("/products")}
+ >
+ Products
+ </span>
+
+ {" / "}
+
+ <span className="text-green-600 font-medium">
+ {product.name}
+ </span>
+</div>
  {/* BREADCRUMB */}
  <div className="mb-8 text-sm text-gray-500">
   {product.name}

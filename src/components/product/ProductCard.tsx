@@ -45,9 +45,9 @@ const handleWishlist = (id: string) => {
  toggleWishlist(id);
 
  if (liked) {
- showToast("Removed from wishlist 🗑", "error");
+ showToast("Removed from wishlist ", "error");
  } else {
- showToast("Added to wishlist ❤️", "success");
+ showToast("Added to wishlist ", "success");
  }
 };
  return (
@@ -73,7 +73,7 @@ const handleWishlist = (id: string) => {
  alt={product.name}
  ref={imageRef}
  className=" img 
- w-full h-[200px] object-cover cursor-pointer
+ w-full h-[350px] object-cover cursor-pointer
  transition-transform duration-300
  hover:scale-110
  "

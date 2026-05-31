@@ -2,6 +2,7 @@ import { useMemo, useState, useEffect } from "react";
 import ProductGrid from "../components/product/ProductGrid";
 import { products } from "../data/products";
 import { IoMdClose } from "react-icons/io";
+import Footer from "../components/layout/Footer";
 //import Footer from "../components/layout/Footer";
 
 export default function ProductPage() {
@@ -209,12 +210,12 @@ const percent = (maxPrice / 100) * 100;
  {/* PAGE TITLE */}
  <div className="mb-10 ">
     
-    <div className="relative h-[350px] md:h-[400px] rounded-2xl overflow-hidden flex items-center px-10 text-white bg-[url('/image/fruit-apple-1.webp')] bg-cover bg-center">
+    <div className="relative h-[350px] md:h-[400px] rounded-2xl overflow-hidden flex items-center px-5 md:px-10 text-white bg-[url('/image/new.jpg')] bg-cover bg-center md:bg-bottom">
 
- <div className="absolute inset-0 bg-black/50" />
+ <div className="absolute inset-0 bg-black/40" />
 
  <div className="relative z-10">
- <h1 className="text-3xl font-bold mb-2 md:text-4xl md:mb-3">
+ <h1 className="text-3xl  font-bold mb-2 md:text-4xl md:mb-3">
  Organic Fruits Delivered Fast
  </h1>
 
@@ -715,7 +716,7 @@ By Categories
  </section>
 
  </div>
-
+<Footer />
 
  </div>
  );

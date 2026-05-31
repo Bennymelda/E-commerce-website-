@@ -33,44 +33,39 @@ const handleLogin = async (e: FormEvent) => {
  setLoading(true);
 
  try {
- // simulate delay (remove later when using backend)
- await new Promise((res) =>
- setTimeout(res, 1500)
- );
+ await new Promise((res) => setTimeout(res, 1500));
 
  const users = JSON.parse(
  localStorage.getItem("users") || "[]"
  ) as StoredUser[];
 
- const existingUser = users.find((user) => user.email === email);
+ const existingUser = users.find(
+ (user) => user.email === email
+ );
 
- // user not found
  if (!existingUser) {
  showToast("User does not exist", "error");
  return;
  }
 
- // wrong password
  if (existingUser.password !== password) {
  showToast("Incorrect password", "error");
  return;
  }
 
- // success login
  localStorage.setItem(
  "currentUser",
  JSON.stringify(existingUser)
  );
 
- showToast(`welcome ${existingUser.name} 🎉`, "success");
- navigate("/");
- return;
+ showToast(`Welcome ${existingUser.name} 🎉`, "success");
+
+ navigate("/"); // ✅ ONLY HERE
  } catch (error) {
+ console.error(error);
  showToast("Something went wrong", "error");
- console.error(error)
  } finally {
- setLoading(false);
- navigate("/")
+ setLoading(false); // ✅ ONLY cleanup
  }
 };
 
@@ -214,7 +209,10 @@ className="
  </button>
 
  </form>
-
+ <div className="flex items-center justify-center gap-1 mt-10">
+<p className="text-sm text-center  ">Already have an account ? </p> 
+    <Link to="/signin" className="text-green-600 text-sm cursor-pointer">Sign Up</Link>
+</div>
  </div>
 
  </div>
