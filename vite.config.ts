@@ -17,9 +17,9 @@ export default defineConfig({
       },
       includeAssets: ['favicon.svg'],
       manifest: {
-        name: 'showmart',
-        short_name: 'showmart',
-        description: 'Your app description',
+        name: 'ShopEase',
+        short_name: 'ShopEase',
+        description: 'ShopEase is a fast and user-friendly grocery shopping app for discovering and ordering fresh organic products, fruits, vegetables, and everyday essentials online.',
         theme_color: '#16a34a',
         background_color: '#ffffff',
         display: 'standalone',

@@ -3,7 +3,6 @@ import ProductGrid from "../components/product/ProductGrid";
 import { products } from "../data/products";
 import { IoMdClose } from "react-icons/io";
 import Footer from "../components/layout/Footer";
-//import Footer from "../components/layout/Footer";
 
 export default function ProductPage() {
  const [search, setSearch] = useState(() => {

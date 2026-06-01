@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../hooks/useCart";
 
@@ -9,6 +9,15 @@ import { MdDelete } from "react-icons/md";
 import { CiLogout } from "react-icons/ci";
 import { GrFormNextLink } from "react-icons/gr";
 import { useWishlist } from "../hooks/useWishlist";
+
+type BeforeInstallPromptEvent = Event & {
+  prompt: () => Promise<void>;
+  userChoice: Promise<{
+    outcome: 'accepted' | 'dismissed';
+    platform: string;
+  }>;
+};
+
 type User = {
   name?: string;
   email?: string;
@@ -74,6 +83,62 @@ export default function ProfilePage() {
    const stored = localStorage.getItem("currentUser");
    return stored ? (JSON.parse(stored) as User) : null;
  });
+ const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
+ const [installMessage, setInstallMessage] = useState<string>("");
+
+ useEffect(() => {
+   const handleBeforeInstallPrompt = (event: Event) => {
+     event.preventDefault();
+     setDeferredPrompt(event as BeforeInstallPromptEvent);
+     setInstallMessage("");
+   };
+
+   const handleAppInstalled = () => {
+     setInstallMessage("✓ App installed successfully! You can now use it offline.");
+     setDeferredPrompt(null);
+   };
+
+   window.addEventListener("beforeinstallprompt", handleBeforeInstallPrompt as EventListener);
+   window.addEventListener("appinstalled", handleAppInstalled);
+
+   return () => {
+     window.removeEventListener("beforeinstallprompt", handleBeforeInstallPrompt as EventListener);
+     window.removeEventListener("appinstalled", handleAppInstalled);
+   };
+ }, []);
+
+ const handleInstallApp = async () => {
+   if (deferredPrompt) {
+     try {
+       deferredPrompt.prompt();
+       const choiceResult = await deferredPrompt.userChoice;
+
+       if (choiceResult.outcome === "accepted") {
+         setInstallMessage("✓ Installation started...");
+       } else {
+         setInstallMessage("Installation was dismissed. You can try again anytime.");
+       }
+
+       setDeferredPrompt(null);
+     } catch (error) {
+       console.error("Install prompt error:", error);
+       setInstallMessage("Please use your browser menu to install.");
+     }
+   } else {
+     const ua = navigator.userAgent.toLowerCase();
+     const isIOS = /iphone|ipad|ipod/.test(ua);
+     const isAndroid = /android/.test(ua);
+
+     if (isIOS) {
+       setInstallMessage("📱 iOS: Tap Share (↗) → Add to Home Screen");
+     } else if (isAndroid) {
+       setInstallMessage("📱 Android: Tap menu (⋮) → Install app or Add to Home screen");
+     } else {
+       setInstallMessage("💻 Desktop: Click menu (⋮) → Install app");
+     }
+   }
+ };
+
 const getMemberDuration = (dateString: string) => {
  const start = new Date(dateString);
  const now = new Date();
@@ -207,11 +272,18 @@ const stats = [
  />
  <NavItem
  icon={<FiDownload />}
- label="Download App"
- onClick={() => {
-   /* optional action can be added here */
- }}
+ label="Install App"
+ onClick={handleInstallApp}
  />
+ {installMessage ? (
+   <div className="px-4 py-3 text-sm text-blue-700 dark:text-blue-300 bg-blue-50 dark:bg-blue-950/30 rounded-xl mt-3 border border-blue-200 dark:border-blue-800">
+     {installMessage}
+   </div>
+ ) : (
+   <div className="px-4 py-3 text-sm text-gray-600 dark:text-gray-400 bg-gray-50 dark:bg-gray-900 rounded-xl mt-3">
+     📲 <strong>How to install:</strong> Click "Install App" and follow the browser prompt, or use your browser menu to add this app to your home screen for easy access.
+   </div>
+ )}
  </div>
 
  <h2 className="text-xs font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-500 px-1 mt-5 mb-2">
