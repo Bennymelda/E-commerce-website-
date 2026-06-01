@@ -31,7 +31,7 @@
 .price-slider::-webkit-slider-runnable-track {
  height: 10px;
  border-radius: 999px;
- background: hashtag#ffffff; /* WHITE BACKGROUND */
+ background: #ffffff; /* WHITE BACKGROUND */
 }
 
 /* GREEN PROGRESS (this is trick part) */

@@ -9,6 +9,10 @@ import { ToastProvider } from './context/ToastContext.tsx'
 import { CartProvider } from './context/CartContext.tsx'
 import { SearchProvider } from './context/SearchProvider.tsx'
 
+if ('serviceWorker' in navigator && import.meta.env.PROD) {
+  import('./pwa/registerSW.ts')
+}
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>

@@ -2,6 +2,7 @@
 //import { ProductProvider } from "./context/ProductContext"
 import { Route, Routes } from "react-router"
 import Home from "./pages/Home"
+import "./index.css"
 import CategoryPage from "./pages/CategoryPage"
 import WishlistPage from "./pages/Wishlist"
 import Navbar from "./pages/Navbar"

@@ -108,7 +108,7 @@ const stats = [
  </p>
  <button
  onClick={() => navigate("/login")}
- className="mt-4 px-6 py-2 bg-green-600 text-white rounded-xl font-semibold hover:bg-green-700 transition-colors"
+ className="mt-4 px-6 py-2 cursor-pointer bg-green-600 text-white rounded-xl font-semibold hover:bg-green-700 transition-colors"
  >
  Go to Login
  </button>
@@ -313,13 +313,13 @@ const stats = [
  <div className="flex gap-3">
  <button
  onClick={() => setOpenEdit(false)}
- className="flex-1 py-2.5 rounded-xl border border-gray-200 dark:border-zinc-700 text-gray-600 dark:text-gray-300 font-medium hover:bg-gray-50 dark:hover:bg-zinc-800 transition-colors"
+ className="cursor-pointer flex-1 py-2.5 rounded-xl border border-gray-200 dark:border-zinc-700 text-gray-600 dark:text-gray-300 font-medium hover:bg-gray-50 dark:hover:bg-zinc-800 transition-colors"
  >
  Cancel
  </button>
  <button
  onClick={saveProfile}
- className="flex-1 font-semibold bg-green-600 hover:bg-green-700 transition-colors text-white py-2.5 rounded-xl"
+ className="cursor-pointer flex-1 font-semibold bg-green-600 hover:bg-green-700 transition-colors text-white py-2.5 rounded-xl"
  >
  Save Changes
  </button>
