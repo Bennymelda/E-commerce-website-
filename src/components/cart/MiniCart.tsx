@@ -19,9 +19,16 @@ const MiniCart = () => {
  return (
  <motion.div
  initial={{ y: 100, opacity: 0 }}
- animate={{ y: isMiniCartOpen ? 0 : 100, opacity: isMiniCartOpen ? 1 : 0 }}
+ animate={{
+ y: isMiniCartOpen ? 0 : 100,
+ opacity: isMiniCartOpen ? 1 : 0,
+ }}
  transition={{ type: "spring", stiffness: 300, damping: 25 }}
- className="fixed bottom-25  md:right-50 h-[100px] md:h-[80px] md:left-50 md:bottom-5 right-10 left-10 bg-[#0d943f] shadow-xl rounded-xl p-4 z-50 flex items-center gap-4"
+ className={`
+ fixed bottom-25 md:right-50 h-[80px] md:left-50 md:bottom-5 right-10 left-10 
+ bg-[#0d943f] shadow-xl rounded-xl p-4 z-50 flex items-center gap-4
+ ${isMiniCartOpen ? "pointer-events-auto" : "pointer-events-none"}
+ `}
 >
  {/* LEFT: CART ITEMS */}
  {cartItems.length === 0 ? (
@@ -74,7 +81,7 @@ const MiniCart = () => {
  {/* CART ICON */}
  
 <Link to="/cart-page">
- <div className="relative cursor-pointer" > 
+ <div className="relative cursor-pointer hidden md:block" > 
 
  <FiShoppingCart className="text-3xl text-white" />
 

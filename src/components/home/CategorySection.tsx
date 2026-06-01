@@ -23,7 +23,7 @@ useEffect(() => {
  } else if (window.innerWidth < 1024) {
  setVisibleCount(3); // tablet
  } else {
- setVisibleCount(5); // desktop
+ setVisibleCount(4); // desktop
  }
  };
 

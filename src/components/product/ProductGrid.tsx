@@ -13,10 +13,10 @@ const skeletonCount =
  ? 2
  : window.innerWidth < 1024
  ? 3
- : 5;
+ : 4;
 
  return (
- <div className="grid grid-cols-1 w-full md:grid-cols-2 lg:grid-cols-5 gap-4">
+ <div className="grid grid-cols-1 w-full md:grid-cols-3  lg:grid-cols-4 gap-2">
 
  {/* LOADING STATE */}
  {loading

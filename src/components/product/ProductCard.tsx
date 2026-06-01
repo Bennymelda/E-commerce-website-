@@ -73,7 +73,7 @@ const handleWishlist = (id: string) => {
  alt={product.name}
  ref={imageRef}
  className=" img 
- w-full h-[350px] object-cover cursor-pointer
+ w-full h-[280px] object-cover cursor-pointer
  transition-transform duration-300
  hover:scale-110
  "

@@ -32,7 +32,7 @@ const isLoading=false
  {trendingProducts.map((product) => (
  <div
  key={product.id}
- className="min-w-[200px]   md:min-w-[240px] h-full snap-start"
+ className="min-w-[300px]   md:min-w-[240px] h-full snap-start"
  >
  <ProductCard product={product} />
  </div>

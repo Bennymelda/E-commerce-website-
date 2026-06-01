@@ -205,7 +205,7 @@ const percent = (maxPrice / 100) * 100;
 
 
  return (
- <div className="px-5 md:py-10 h-screen ">
+ <div className="px-5 md:py-10 min-h-screen ">
 
  {/* PAGE TITLE */}
  <div className="mb-10 ">
@@ -670,7 +670,7 @@ By Categories
 
 
  {/* PRODUCTS SECTION */}
- <section className="flex-1    h-screen overscroll-y-auto ">
+ <section className="flex-1 ">
 
  {/* PRODUCT COUNT */}
  <div className="flex justify-between items-center mb-6">

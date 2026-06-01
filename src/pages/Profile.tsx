@@ -138,7 +138,7 @@ const stats = [
      .slice(0, 2);
 
  return (
- <div className="min-h-screen bg-gray-50 dark:bg-zinc-950 pt-6 pb-16 px-4 md:px-8 md:mt-16">
+ <div className="min-h-screen bg-gray-50 dark:bg-zinc-950 mb-20 pt-6 pb-16 px-4 md:px-8 md:mt-16">
  <div className="max-w-5xl mx-auto">
 
  {/* ── HEADER CARD ── */}
@@ -157,7 +157,7 @@ const stats = [
  <div className="px-6 pb-6 -mt-10 flex flex-col md:flex-row md:items-end md:justify-between gap-4">
  {/* Avatar + info */}
  <div className="flex items-end gap-4">
- <div className="w-20 h-25 rounded-2xl bg-green-600 flex items-center justify-center text-white text-2xl font-bold shadow-lg border-4 border-white dark:border-zinc-900">
+ <div className="w-20 h-28 rounded-2xl bg-green-600 flex items-center justify-center text-white text-2xl font-bold shadow-lg border-4 border-white dark:border-zinc-900">
  {getInitials(user.name || user.email || "User")}
  </div>
  <div className="mb-1">
