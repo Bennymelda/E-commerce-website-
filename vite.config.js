@@ -36,10 +36,38 @@ export default defineConfig({
           }
         ]
       },
-      workbox: {
-        globPatterns: ['**/*.{js,css,html,svg,png,ico,json}'],
-        maximumFileSizeToCacheInBytes: 5 * 1024 * 1024
-      }
+    workbox: {
+ globPatterns: ['**/*.{js,css,html,svg,png,ico,json}'],
+ ignoreURLParametersMatching: [/^utm_/, /^fbclid$/],
+ maximumFileSizeToCacheInBytes: 3 * 1024 * 1024,
+ runtimeCaching: [
+ // Page caching
+ {
+ urlPattern: ({ request }) => request.mode === 'navigate',
+ handler: 'NetworkFirst',
+ options: {
+ cacheName: 'pages-cache',
+ },
+ },
+
+ // Image caching - handles jpg, jpeg, webp (large images)
+ {
+ urlPattern: ({ request }) =>
+ request.destination === 'image',
+
+ handler: 'CacheFirst',
+
+ options: {
+ cacheName: 'product-images',
+
+ expiration: {
+ maxEntries: 200,
+ maxAgeSeconds: 60 * 60 * 24 * 30,
+ },
+ },
+ },
+ ],
+}
     })
  ]
 })

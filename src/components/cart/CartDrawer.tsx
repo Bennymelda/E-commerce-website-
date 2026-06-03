@@ -53,8 +53,8 @@ useEffect(() => {
 >
    <div className="w-full flex justify-center py-2 lg:hidden">
  <div className="w-12 h-1 bg-gray-300 rounded-full" />
-</div> 
- <div className="p-4  flex justify-between">
+</div>
+ <div className="p-4  justify-between hidden lg:flex">
  
 <IoClose onClick={closeCart} className="text-2xl cursor-pointer" />
  </div>

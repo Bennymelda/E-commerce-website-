@@ -15,7 +15,7 @@ export default defineConfig({
       devOptions: {
         enabled: true
       },
-      includeAssets: ['favicon.svg'],
+      includeAssets: ['app-icon.svg', 'favicon.svg'],
       manifest: {
         name: 'ShopEase',
         short_name: 'ShopEase',
@@ -24,24 +24,68 @@ export default defineConfig({
         background_color: '#ffffff',
         display: 'standalone',
         start_url: '/',
+        scope: '/',
         icons: [
           {
             src: '/app-icon.svg',
-            sizes: 'any',
+            sizes: '192x192',
             type: 'image/svg+xml',
             purpose: 'any maskable'
           },
           {
-            src: '/favicon.svg',
-            sizes: '48x46',
-            type: 'image/svg+xml'
+            src: '/app-icon.svg',
+            sizes: '512x512',
+            type: 'image/svg+xml',
+            purpose: 'any maskable'
+          },
+          {
+            src: '/app-icon.svg',
+            sizes: '180x180',
+            type: 'image/svg+xml',
+            purpose: 'any maskable'
+          },
+          {
+            src: '/app-icon.svg',
+            sizes: '167x167',
+            type: 'image/svg+xml',
+            purpose: 'any maskable'
           }
         ]
       },
-      workbox: {
-        globPatterns: ['**/*.{js,css,html,svg,png,ico,json}'],
-        maximumFileSizeToCacheInBytes: 5 * 1024 * 1024
-      }
+    workbox: {
+ globPatterns: ['**/*.{js,css,html,svg,png,ico,json}'],
+ ignoreURLParametersMatching: [/^utm_/, /^fbclid$/],
+ maximumFileSizeToCacheInBytes: 3 * 1024 * 1024,
+ runtimeCaching: [
+ // Page caching
+ {
+ urlPattern: ({ request }) => request.mode === 'navigate',
+ handler: 'NetworkFirst',
+ options: {
+ cacheName: 'pages-cache',
+ },
+ },
+
+ // Image caching - handles jpg, jpeg, webp (large images)
+ {
+ urlPattern: ({ request }) =>
+ request.destination === 'image',
+
+ handler: 'CacheFirst',
+
+ options: {
+ cacheName: 'product-images',
+
+ expiration: {
+ maxEntries: 200,
+ maxAgeSeconds: 60 * 60 * 24 * 30,
+ },
+ },
+ },
+ ],
+}
     })
  ],
 })
+
+ 

@@ -130,7 +130,7 @@ export default function ProfilePage() {
      const isAndroid = /android/.test(ua);
 
      if (isIOS) {
-       setInstallMessage("📱 iOS: Tap Share (↗) → Add to Home Screen");
+       setInstallMessage("📱 iOS: Tap Share icon on your screen (square with an arrow pointing up)(↗) → Tap Add to Home Screen");
      } else if (isAndroid) {
        setInstallMessage("📱 Android: Tap menu (⋮) → Install app or Add to Home screen");
      } else {
@@ -276,7 +276,7 @@ const stats = [
  onClick={handleInstallApp}
  />
  {installMessage ? (
-   <div className="px-4 py-3 text-sm text-blue-700 dark:text-blue-300 bg-blue-50 dark:bg-blue-950/30 rounded-xl mt-3 border border-blue-200 dark:border-blue-800">
+   <div className="px-4 py-3 text-sm text-green-700 dark:text-blue-300 bg-green-50 dark:bg-blue-950/30 rounded-xl mt-3 border border-blue-200 dark:border-blue-800">
      {installMessage}
    </div>
  ) : (

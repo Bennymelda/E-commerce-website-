@@ -46,7 +46,7 @@ const PromoBanner = () => {
  const banner = banners[index];
 
  return (
- <div className="relative w-full h-[400px] md:h-[600px] overflow-hidden">
+ <div className="relative w-full h-[400px] md:h-[600px] overflow-hidden px-2">
 
  {/* BACKGROUND (NO RE-RENDER FLICKER) */}
  <div
@@ -98,17 +98,17 @@ const PromoBanner = () => {
  <div className="md:hidden">
  <button
  onClick={prev}
- className="absolute left-3 top-1/2 -translate-y-1/2 text-white text-3xl"
- >
+ className="absolute left-3 top-1/2 -translate-y-1/2 text-white text-3xl z-20 cursor-pointer"
+>
  <MdNavigateBefore />
- </button>
+</button>
 
- <button
+<button
  onClick={next}
- className="absolute right-3 top-1/2 -translate-y-1/2 text-white text-3xl"
- >
+ className="absolute right-3 top-1/2 -translate-y-1/2 text-white text-3xl z-20 cursor-pointer"
+>
  <MdNavigateNext />
- </button>
+</button>
  </div>
  </div>
  );

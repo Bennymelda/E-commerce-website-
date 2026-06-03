@@ -88,6 +88,7 @@ const navigate=useNavigate()
  bg-white/90 dark:bg-black/60
  p-2 rounded-full
  shadow-md
+ cursor-pointer
  text-red-500
  hover:bg-red-500
  hover:text-white
