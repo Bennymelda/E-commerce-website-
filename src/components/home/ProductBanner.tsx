@@ -63,7 +63,7 @@ const PromoBanner = () => {
  initial={{ opacity: 0, x: 50 }}
  animate={{ opacity: 1, x: 0 }}
  exit={{opacity:0, x:-50}}
- transition={{ duration:0.8}}
+ transition={{ duration:1}}
  className="relative  z-10 h-full flex flex-col justify-center px-10 md:px-10 md:w-[600px] text-white"
  >
  <h2 className="text-3xl md:text-5xl font-bold mb-4">

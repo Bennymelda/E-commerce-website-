@@ -259,7 +259,7 @@ className="w-full px-4 py-3 rounded-full bg-white focus:ring-1 focus:ring-green-
  <div className="flex justify-between">
  <p>Account Name</p>
  <p className="font-semibold">
- ShopEase
+ FreshMart
  </p>
  </div>
 

@@ -15,24 +15,25 @@ export default defineConfig({
       },
       includeAssets: ['favicon.svg'],
       manifest: {
-        name: 'ShopEase',
-        short_name: 'ShopEase',
-        description: 'ShopEase is a fast and user-friendly grocery shopping app for discovering and ordering fresh organic products, fruits, vegetables, and everyday essentials online.',
+        name: 'FreshMart',
+        short_name: 'FreshMart',
+        description: 'FreshMart is a fast and user-friendly grocery shopping app for discovering and ordering fresh organic products, fruits, vegetables, and everyday essentials online.',
         theme_color: '#16a34a',
         background_color: '#ffffff',
         display: 'standalone',
         start_url: '/',
         icons: [
           {
-            src: '/app-icon.svg',
-            sizes: 'any',
-            type: 'image/svg+xml',
+            src: '/FreshMart-512.png',
+            
+            sizes: '512x512',
+            type: 'image/png',
             purpose: 'any maskable'
           },
           {
-            src: '/favicon.svg',
-            sizes: '48x46',
-            type: 'image/svg+xml'
+            src: '/FreshMart-192.png',
+            sizes: '192x192',
+            type: 'image/png'
           }
         ]
       },

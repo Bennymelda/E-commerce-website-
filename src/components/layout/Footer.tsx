@@ -17,9 +17,9 @@ const { categories, setSelectedCategory } =
 
  {/* BRAND */}
  <div>
- <h2 className="text-3xl font-bold text-green-600">
- ShopEase
- </h2>
+ <div>
+    <img src="/FreshMart-192.png" className="w-40 object-cover h-10" alt="logo design" />
+ </div>
 
  <p className="mt-4 text-sm leading-6 text-gray-700">
  Fresh organic groceries and fruits delivered
@@ -135,7 +135,7 @@ className="hover:text-green-500 transition cursor-pointer text-zinc-700"
  {/* BOTTOM */}
  <hr  className="text-gray-200"/>
  <div className=" border-zinc-800 py-5 text-center text-sm text-gray-500">
- © 2026 ShopEase. All rights reserved.
+ © 2026 FreshMart. All rights reserved.
  </div>
 
  </footer>

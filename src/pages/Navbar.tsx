@@ -28,9 +28,9 @@ const isLoggedIn = !!user;
  <nav className="fixed top-0 left-0 right-0 bg-white dark:bg-black   z-50  hidden md:flex  items-center justify-between px-4 py-5 shadow-md">
 
  {/* LOGO */}
- <h1 className="text-2xl font-bold text-black dark:text-white">
- ShopEase
- </h1>
+ <div>
+    <img src="/FreshMart-192.png" className="w-40 object-cover h-10" alt="logo design" />
+ </div>
 
  {/* CENTER LINKS */}
  <div className="flex items-center gap-6 text-sm font-medium">
@@ -177,9 +177,9 @@ to="/cart-page"
  <div className="md:hidden flex justify-between items-center py-6 px-4 rounded shadow-2xl bg-white dark:bg-black ">
 
  {/* LOGO */}
- <h1 className="text-xl font-bold text-black dark:text-white">
- ShopEase
- </h1>
+ <div>
+    <img src="/FreshMart-192.png" className="w-30 object-cover h-10" alt="logo design" />
+ </div>
 
  {/* CART */}
  <div className="flex items-center gap-4">

@@ -10,81 +10,68 @@ export default defineConfig({
     tailwindcss(),
     react(),
     VitePWA({
-      registerType: 'autoUpdate',
-      injectRegister: null,
-      devOptions: {
-        enabled: true
-      },
-      includeAssets: ['app-icon.svg', 'favicon.svg'],
-      manifest: {
-        name: 'ShopEase',
-        short_name: 'ShopEase',
-        description: 'ShopEase is a fast and user-friendly grocery shopping app for discovering and ordering fresh organic products, fruits, vegetables, and everyday essentials online.',
-        theme_color: '#16a34a',
-        background_color: '#ffffff',
-        display: 'standalone',
-        start_url: '/',
-        scope: '/',
-        icons: [
-          {
-            src: '/app-icon.svg',
-            sizes: '192x192',
-            type: 'image/svg+xml',
-            purpose: 'any maskable'
+          registerType: 'autoUpdate',
+          injectRegister: null,
+          devOptions: {
+            enabled: true
           },
-          {
-            src: '/app-icon.svg',
-            sizes: '512x512',
-            type: 'image/svg+xml',
-            purpose: 'any maskable'
+          includeAssets: ['favicon.svg'],
+          manifest: {
+            name: 'FreshMart',
+            short_name: 'FreshMart',
+            description: 'FreshMart is a fast and user-friendly grocery shopping app for discovering and ordering fresh organic products, fruits, vegetables, and everyday essentials online.',
+            theme_color: '#16a34a',
+            background_color: '#ffffff',
+            display: 'standalone',
+            start_url: '/',
+            icons: [
+              {
+                src: '/FreshMart.png',
+                
+                sizes: '512x512',
+                type: 'image/png',
+                purpose: 'any maskable'
+              },
+              {
+                src: '/FreshMart (1).png',
+                sizes: '192x192',
+                type: 'image/png'
+              }
+            ]
           },
-          {
-            src: '/app-icon.svg',
-            sizes: '180x180',
-            type: 'image/svg+xml',
-            purpose: 'any maskable'
-          },
-          {
-            src: '/app-icon.svg',
-            sizes: '167x167',
-            type: 'image/svg+xml',
-            purpose: 'any maskable'
-          }
-        ]
-      },
-    workbox: {
- globPatterns: ['**/*.{js,css,html,svg,png,ico,json}'],
- ignoreURLParametersMatching: [/^utm_/, /^fbclid$/],
- maximumFileSizeToCacheInBytes: 3 * 1024 * 1024,
- runtimeCaching: [
- // Page caching
- {
- urlPattern: ({ request }) => request.mode === 'navigate',
- handler: 'NetworkFirst',
- options: {
- cacheName: 'pages-cache',
- },
- },
-
- // Image caching - handles jpg, jpeg, webp (large images)
- {
- urlPattern: ({ request }) =>
- request.destination === 'image',
-
- handler: 'CacheFirst',
-
- options: {
- cacheName: 'product-images',
-
- expiration: {
- maxEntries: 200,
- maxAgeSeconds: 60 * 60 * 24 * 30,
- },
- },
- },
- ],
-}
-    })
+        workbox: {
+     globPatterns: ['**/*.{js,css,html,svg,png,ico,json}'],
+     ignoreURLParametersMatching: [/^utm_/, /^fbclid$/],
+     maximumFileSizeToCacheInBytes: 3 * 1024 * 1024,
+     runtimeCaching: [
+     // Page caching
+     {
+     urlPattern: ({ request }) => request.mode === 'navigate',
+     handler: 'NetworkFirst',
+     options: {
+     cacheName: 'pages-cache',
+     },
+     },
+    
+     // Image caching - handles jpg, jpeg, webp (large images)
+     {
+     urlPattern: ({ request }) =>
+     request.destination === 'image',
+    
+     handler: 'CacheFirst',
+    
+     options: {
+     cacheName: 'product-images',
+    
+     expiration: {
+     maxEntries: 200,
+     maxAgeSeconds: 60 * 60 * 24 * 30,
+     },
+     },
+     },
+     ],
+    }
+        })
  ],
 })
 
