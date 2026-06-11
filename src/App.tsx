@@ -23,6 +23,7 @@ import ResetPasswordPage from "./pages/ResetPassword"
 import ProfilePage from "./pages/Profile"
 import {useState,useEffect, useCallback } from "react"
 import { useToast } from "./hooks/useToast"
+
 function App() {
  const location = useLocation();
 
@@ -121,7 +122,7 @@ return (
     <Route path="/login" element={<LoginPage/>} />
    <Route path="/reset" element={<ResetPasswordPage/>} />
    <Route path="/profile" element={<ProfilePage/>} />
-   
+  
    </Routes>
  
    <div id="cart-icon">

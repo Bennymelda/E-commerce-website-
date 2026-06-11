@@ -352,10 +352,10 @@ try {
  />
 
  <span className="text-sm text-gray-600 dark:text-gray-400">
- I agree to the <span className="text-green-600">Terms of service </span>
-  and  <span className="text-green-600">Privacy policy.</span>
+ I agree to the Terms of service 
+  and Privacy policy.</span>
 
- </span>
+
 
  </label>
 

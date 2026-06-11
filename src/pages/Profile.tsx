@@ -263,7 +263,7 @@ const stats = [
  <NavItem
  icon={<FaBox />}
  label="Orders"
- onClick={() => navigate("/orders")}
+ onClick={() => navigate("/checkout?step=2")}
  />
  <NavItem
  icon={<FaCartShopping />}

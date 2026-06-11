@@ -1,18 +1,23 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { useCart } from "../hooks/useCart";
 import { useToast } from "../hooks/useToast";
 import PaymentMethod from "./PaymentMethod";
 import { useNavigate } from "react-router-dom";
 import ShippingForm from "./ShippingForm";
 import type { Order } from "../types/order.types";
-
+import { useLocation } from "react-router-dom";
 export default function CheckoutPage() {
- const [step, setStep] = useState(1);
+const location = useLocation();
+const navigate = useNavigate();
+
+const step = location.search.includes("step=2") ? 2 : 1;
 const { showToast } = useToast();
- const navigate = useNavigate();
 
  const { cartItems, clearCart } = useCart();
-
+useEffect(() => {
+ const params = new URLSearchParams(location.search);
+ if (params.get("step") === "2") ;
+}, []);
  // SHIPPING STATE
  const [form, setForm] = useState({
  fullName: "",
@@ -74,26 +79,26 @@ const DELIVERY_FEE = 10;
 const total = subtotal + DELIVERY_FEE;
 
  const nextStep = () => {
- const error = validateStep1();
+const error = validateStep1();
 
  if (error) {
 showToast(error, "error");// later we can replace with toast
  return;
  }
 
- setStep((prev) => prev + 1);
+navigate("/checkout?step=2")
 };
- const prevStep = () => setStep((prev) => prev - 1);
+ const prevStep = () => navigate("/checkout");
 
  const handlePlaceOrder = () => {
- if (!paymentMethod) return;
+ console.log("payment:", paymentMethod);
 
  const order: Order = {
-   id: Date.now().toString(),
-   items: cartItems,
-   total,
-   status: "processing",
-   createdAt: new Date().toISOString(),
+ id: Date.now().toString(),
+ items: cartItems,
+ total,
+ status: "processing",
+ createdAt: new Date().toISOString(),
  };
 
  const existingOrders = JSON.parse(localStorage.getItem("orders") || "[]");
@@ -101,7 +106,7 @@ showToast(error, "error");// later we can replace with toast
 
  clearCart();
  navigate("/order-success");
- };
+};
 
  return (
     <div className="flex md:mt-20 pr-4 mb-10">
@@ -188,7 +193,19 @@ showToast(error, "error");// later we can replace with toast
 
 
  {/* STEP 2 */}
- {step === 2 && (
+
+{cartItems.length === 0 ?(
+<div className="text-center mt-20">
+ <h2 className="text-xl font-semibold">Your cart is empty shop to see orders</h2>
+ <button
+ onClick={() => navigate("/products")}
+ className="mt-4 bg-green-600 cursor-pointer text-white px-4 py-2 rounded"
+ >
+ Start Shopping
+ </button>
+ </div>
+):(
+step === 2 && (
  <div className="max-w-5xl mx-auto">
 
  <h2 className="text-2xl md:text-3xl font-bold mb-8">
@@ -341,8 +358,9 @@ showToast(error, "error");// later we can replace with toast
  </div>
 
 </div>
- )}
-
+ )
+)}
+ 
  </div>
     </div>
 

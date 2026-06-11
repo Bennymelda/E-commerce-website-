@@ -119,7 +119,7 @@ className="hover:text-green-500 transition cursor-pointer text-zinc-700"
  <div className="space-y-3 text-sm text-gray-800">
  <p>Email: benedicta45@gmail.com</p>
 
- <p>Phone: +234 903 488 1350</p>
+ <p>Phone: +234 903 766 1350</p>
 
  <p>
  Onitisha, Anambra State,

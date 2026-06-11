@@ -1,4 +1,5 @@
 
+import { useEffect } from "react";
 import { useCart } from "../../hooks/useCart";
 import { motion } from "framer-motion";
 import { FiShoppingCart } from "react-icons/fi";
@@ -14,7 +15,15 @@ const MiniCart = () => {
  totalCartItems,
 
  } = useCart();
+useEffect(() => {
+ if (!isMiniCartOpen) return;
 
+ const timer = setTimeout(() => {
+ closeMiniCart();
+ }, 5000);
+
+ return () => clearTimeout(timer);
+}, [isMiniCartOpen, closeMiniCart]);
  
  return (
  <motion.div
