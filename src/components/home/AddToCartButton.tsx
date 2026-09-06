@@ -63,7 +63,7 @@ const handleAdd = () => {
  exit={{ opacity: 0, scale: 0.8 }}
  whileTap={{ scale: 0.95 }}
  onClick={handleAdd}
- className=" bg-white  flex items-center justify-center w-10 h-10  text-white py-2 rounded-full"
+ className=" bg-white  flex items-center justify-center w-8 h-8 md:w-10 md:h-10 shadow-md  text-white py-2 rounded-full"
  >
 <FaPlus className="text-black cursor-pointer font-bold"></FaPlus>
  </motion.button>

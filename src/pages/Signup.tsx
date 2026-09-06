@@ -147,54 +147,199 @@ try {
 }
 };
  return (
- <div className=" md:rounded-3xl rounded-none  bg-gray-50 dark:bg-black flex  px-5 py-10 justify-center">
-<div className="hidden md:block w-100 relative">
+ <div className="
+ min-h-screen
+ bg-gray-50
+ dark:bg-black
+ flex
+ items-center
+ justify-center
+ px-4
+ py-8
+ md:px-8
+ ">
+
+ <div className="
+ w-full
+ max-w-7xl
+ flex
+ overflow-hidden
+ rounded-3xl
+ bg-white
+ dark:bg-zinc-900
+ shadow-xl
+ ">
+
+ {/* LEFT SIDE */}
+ <div className="
+ hidden
+ md:flex
+ w-1/2
+ relative
+ min-h-[650px]
+ overflow-hidden
+ ">
+
  <img
- className="w-full h-full object-cover md:rounded-tl-3xl md:rounded-bl-3xl"
  src="/image/demo.jpg"
+ alt="Fresh groceries"
+ className="
+ absolute
+ inset-0
+ w-full
+ h-full
+ object-cover
+ "
  />
 
- <div className="absolute inset-0 bg-black/50 md:rounded-tl-3xl md:rounded-bl-3xl" />
-</div>
- <div className="w-full max-w-md rounded-3xl md:rounded-none bg-white dark:bg-zinc-900 md:rounded-tr-3xl md:rounded-br-3xl  shadow-sm p-6 md:p-8 md:pl-12 flex flex-col justify-center">
+ {/* OVERLAY */}
+ <div className="
+ absolute
+ inset-0
+ bg-gradient-to-b
+ from-black/80
+ via-black/40
+ to-black/70
+ " />
+
+ {/* CONTENT */}
+ <div className="
+ relative
+ z-10
+ h-full
+ w-full
+ p-10
+ text-white
+ flex
+ flex-col
+ justify-between
+ ">
+
+ {/* TOP */}
+ <div>
+ <p className="
+ text-green-300
+ text-sm
+ font-semibold
+ tracking-wide
+ uppercase
+ ">
+ Fresh groceries. Made simple.
+ </p>
+ </div>
+
+
+ {/* CENTER */}
+ <div>
+ <h2 className="
+ text-3xl
+ lg:text-4xl
+ font-bold
+ leading-tight
+ max-w-md
+ ">
+ Eat better.
+
+ Shop fresher.
+ </h2>
+
+ <p className="
+ text-white/80
+ leading-relaxed
+ max-w-md
+ mt-4
+ ">
+ Get fresh produce and everyday essentials delivered
+ straight to your door, without the hassle.
+ </p>
+ </div>
+
+
+ {/* BOTTOM */}
+ <div className="
+ flex
+ items-center
+ gap-6
+ text-sm
+ text-white/90
+ ">
+ <span>✓ Fresh produce</span>
+ <span>✓ Fast delivery</span>
+ </div>
+
+ </div>
+ </div>
+
+
+ {/* SIGNUP FORM */}
+ <div className="
+ w-full
+ md:w-1/2
+ p-6
+ sm:p-8
+ md:p-10
+ lg:p-12
+ flex
+ flex-col
+ justify-center
+ ">
 
  {/* HEADER */}
- <div className=" mb-8">
- <h1 className="text-3xl md:text-4xl font-bold dark:text-white">
+ <div className="mb-7">
+
+ <h1 className="
+ text-3xl
+ md:text-4xl
+ font-bold
+ text-gray-900
+ dark:text-white
+ ">
  Create an account
  </h1>
 
- <p className="text-gray-600 mt-2">
- Start your fresh lifestyle
- today.
+ <p className="
+ text-gray-500
+ dark:text-gray-400
+ mt-2
+ ">
+ Join us and make fresh shopping easier.
  </p>
+
  </div>
+
 
  {/* FORM */}
  <form
  onSubmit={handleSubmit}
- className="space-y-5"
+ className="space-y-4"
  >
 
  {/* NAME */}
- <label className="font-semibold text-gray-700 ">Full Name</label>
+ <div>
+ <label className="
+ block
+ font-medium
+ text-sm
+ text-gray-700
+ dark:text-gray-300
+ mb-2
+ ">
+ Full name
+ </label>
+
  <input
  type="text"
  value={name}
- onChange={(e) =>
- setName(
- e.target.value
- )
- }
- placeholder="Full Name"
+ onChange={(e) => setName(e.target.value)}
+ placeholder="Your full name"
  className="
  w-full
  border
  border-gray-200
  rounded-xl
- mt-2
- px-4 py-3
- bg-gray-100
+ px-4
+ py-3
+ bg-gray-50
  focus:outline-none
  focus:ring-2
  focus:ring-green-600
@@ -203,26 +348,35 @@ try {
  dark:text-white
  "
  />
+ </div>
+
 
  {/* EMAIL */}
- <label className="font-semibold text-gray-700 ">Email Address</label>
+ <div>
+ <label className="
+ block
+ font-medium
+ text-sm
+ text-gray-700
+ dark:text-gray-300
+ mb-2
+ ">
+ Email address
+ </label>
+
  <input
  type="email"
  value={email}
- onChange={(e) =>
- setEmail(
- e.target.value
- )
- }
- placeholder="Email Address"
+ onChange={(e) => setEmail(e.target.value)}
+ placeholder="you@example.com"
  className="
  w-full
  border
  border-gray-200
  rounded-xl
- px-4 py-3
- mt-2
- bg-gray-100
+ px-4
+ py-3
+ bg-gray-50
  focus:outline-none
  focus:ring-2
  focus:ring-green-600
@@ -231,31 +385,37 @@ try {
  dark:text-white
  "
  />
+ </div>
+
 
  {/* PASSWORD */}
  <div className="relative">
-<label className="font-semibold text-gray-700 ">Password</label>
+
+ <label className="
+ block
+ font-medium
+ text-sm
+ text-gray-700
+ dark:text-gray-300
+ mb-2
+ ">
+ Password
+ </label>
+
  <input
- type={
- showPassword
- ? "text"
- : "password"
- }
+ type={showPassword ? "text" : "password"}
  value={password}
- onChange={(e) =>
- setPassword(
- e.target.value
- )
- }
- placeholder="Password"
+ onChange={(e) => setPassword(e.target.value)}
+ placeholder="Create a password"
  className="
  w-full
- mt-2
  border
  border-gray-200
  rounded-xl
- px-4 py-3 pr-12
- bg-gray-100
+ px-4
+ py-3
+ pr-12
+ bg-gray-50
  focus:outline-none
  focus:ring-2
  focus:ring-green-600
@@ -267,49 +427,49 @@ try {
 
  <button
  type="button"
- onClick={() =>
- setShowPassword(
- !showPassword
- )
- }
- className="cursor-pointer absolute right-4 top-2/3 -translate-y-1/2"
+ onClick={() => setShowPassword(!showPassword)}
+ className="
+ cursor-pointer
+ absolute
+ right-4
+ bottom-3
+ text-gray-500
+ "
  >
- {showPassword ? (
-  <FaRegEye className="text-gray-600" />
- ) : (
- <FaRegEyeSlash className="text-gray-600"/>
- )}
+ {showPassword ? <FaRegEye /> : <FaRegEyeSlash />}
  </button>
 
  </div>
+
 
  {/* CONFIRM PASSWORD */}
  <div className="relative">
-<label className="font-semibold text-gray-700 ">Confirm Password</label>
+
+ <label className="
+ block
+ font-medium
+ text-sm
+ text-gray-700
+ dark:text-gray-300
+ mb-2
+ ">
+ Confirm password
+ </label>
+
  <input
- type={
- showConfirmPassword
- ? "text"
- : "password"
- }
- value={
- confirmPassword
- }
- onChange={(e) =>
- setConfirmPassword(
- e.target.value
- )
- }
- placeholder="Confirm Password"
+ type={showConfirmPassword ? "text" : "password"}
+ value={confirmPassword}
+ onChange={(e) => setConfirmPassword(e.target.value)}
+ placeholder="Confirm your password"
  className="
  w-full
- mt-2
-
  border
  border-gray-200
  rounded-xl
- bg-gray-100
- px-4 py-3 pr-12
+ px-4
+ py-3
+ pr-12
+ bg-gray-50
  focus:outline-none
  focus:ring-2
  focus:ring-green-600
@@ -322,48 +482,54 @@ try {
  <button
  type="button"
  onClick={() =>
- setShowConfirmPassword(
- !showConfirmPassword
- )
+ setShowConfirmPassword(!showConfirmPassword)
  }
- className="cursor-pointer absolute right-4 top-2/3 -translate-y-1/2"
+ className="
+ cursor-pointer
+ absolute
+ right-4
+ bottom-3
+ text-gray-500
+ "
  >
- {showConfirmPassword ? (
- <FaRegEye className="text-gray-600" />
- ) : (
- <FaRegEyeSlash className="text-gray-600"/>
- )}
+ {showConfirmPassword ? <FaRegEye /> : <FaRegEyeSlash />}
  </button>
 
  </div>
 
+
  {/* TERMS */}
- <label className="flex items-start gap-3 cursor-pointer">
+ <label className="
+ flex
+ items-start
+ gap-3
+ cursor-pointer
+ pt-1
+ ">
 
  <input
  type="checkbox"
  checked={agreed}
- onChange={() =>
- setAgreed(
- !agreed
- )
- }
+ onChange={() => setAgreed(!agreed)}
  className="mt-1 accent-green-600"
  />
 
- <span className="text-sm text-gray-600 dark:text-gray-400">
- I agree to the Terms of service 
-  and Privacy policy.</span>
-
-
+ <span className="
+ text-sm
+ text-gray-600
+ dark:text-gray-400
+ leading-relaxed
+ ">
+ I agree to the Terms of Service and Privacy Policy.
+ </span>
 
  </label>
 
- {/* BUTTON */}
 
+ {/* BUTTON */}
  <button
  type="submit"
- 
+ disabled={loading}
  className="
  w-full
  bg-green-600
@@ -372,42 +538,68 @@ try {
  disabled:cursor-not-allowed
  text-white
  py-3
- rounded-4xl
+ mt-3
+ rounded-full
  font-semibold
- flex items-center
+ flex
+ items-center
  justify-center
  gap-2
-  cursor-pointer
+ cursor-pointer
+ transition
  "
->
+ >
+
  {loading && (
- <div
- className="
- w-4 h-4
+ <div className="
+ w-4
+ h-4
  border-2
  border-white
  border-t-transparent
  rounded-full
  animate-spin
- "
- />
+ " />
  )}
 
  {loading
  ? "Creating Account..."
  : "Create Account"}
-</button>
+
+ </button>
 
  </form>
 
-<div className="flex items-center justify-center gap-1 mt-10">
-<p className="text-sm text-center  ">Already have an account ? </p> 
-    <Link to="/login" className="text-green-600 text-sm cursor-pointer">Sign in</Link>
-</div>
+
+ {/* SIGN IN */}
+ <div className="
+ flex
+ items-center
+ justify-center
+ gap-1
+ mt-7
+ text-sm
+ ">
+ <p className="text-gray-500">
+ Already have an account?
+ </p>
+
+ <Link
+ to="/login"
+ className="
+ text-green-600
+ font-semibold
+ hover:underline
+ cursor-pointer
+ "
+ >
+ Sign in
+ </Link>
+ </div>
 
  </div>
 
-
  </div>
- );
+ </div>
+);
 }

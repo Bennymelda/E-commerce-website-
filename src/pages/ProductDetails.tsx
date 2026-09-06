@@ -87,15 +87,15 @@ const handleWishlist = (id: string) => {
  <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
 
  {/* LEFT IMAGES */}
- <div>
+<div>
 
  {/* MAIN IMAGE */}
- <div className="bg-gray-100 dark:bg-zinc-900 rounded-3xl overflow-hidden">
+ <div className="bg-gray-100 dark:bg-zinc-900 rounded-3xl overflow-hidden flex items-center justify-center">
  <img
  key={activeImage}
  src={activeImage}
  alt={product.name}
- className="w-full h-87.5 md:h-125 object-cover"
+ className="w-full h-87.5 md:h-125 object-contain"
  />
  </div>
 
@@ -121,15 +121,17 @@ const handleWishlist = (id: string) => {
  `}
  >
  <img
- 
  src={img}
  alt="thumbnail"
- className="w-full h-full object-cover"
+ className="w-full h-full object-contain"
  />
  </button>
  ))}
  </div>
- </div>
+
+</div>
+
+
 
  
 

@@ -137,11 +137,11 @@ const CartPage = () => {
  <div className="flex justify-between gap-4">
 
  <div>
- <h2 className="text-xl md:text-2xl font-bold dark:text-white">
+ <h2 className="text-lg md:text-xl font-bold dark:text-white">
  {item.name}
  </h2>
 
- <p className="text-gray-500 mt-2">
+ <p className="text-gray-500 mt-2 text-sm md:text-md">
  {item.unit}
  </p>
  </div>
@@ -166,12 +166,12 @@ const CartPage = () => {
  {/* PRICE */}
  <div className="mt-5 flex items-center gap-3">
 
- <h3 className="text-2xl font-bold text-green-600">
+ <h3 className="text-md md:text-lg font-bold text-green-600">
  ${item.price}
  </h3>
 
  {item.oldPrice && (
- <p className="text-gray-400 line-through">
+ <p className="text-gray-400 text-sm line-through">
  ${item.oldPrice}
  </p>
  )}
@@ -187,12 +187,12 @@ const CartPage = () => {
  <div className="
  flex
  items-center
- gap-5
+ gap-4
  bg-gray-100
  dark:bg-zinc-800
  rounded-full
- px-5
- py-3
+ px-4
+ py-2
  w-fit
  ">
 
@@ -235,7 +235,7 @@ const CartPage = () => {
  Subtotal
  </p>
 
- <h3 className="text-2xl font-bold dark:text-white">
+ <h3 className="text-lg md:text-xl font-bold dark:text-white">
  $
  {(
  item.price *

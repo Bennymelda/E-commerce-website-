@@ -1,11 +1,10 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
-import { useCart } from "../hooks/useCart";
 
 import { FaUserCircle, FaEdit } from "react-icons/fa";
 import { FaBox, FaCartShopping, FaRegHeart } from "react-icons/fa6";
 import { FiDownload } from "react-icons/fi";
-import { MdDelete } from "react-icons/md";
+
 import { CiLogout } from "react-icons/ci";
 import { GrFormNextLink } from "react-icons/gr";
 import { useWishlist } from "../hooks/useWishlist";
@@ -77,7 +76,7 @@ function NavItem({ icon, label, onClick, danger = false }: NavItemProps) {
 
 export default function ProfilePage() {
  const navigate = useNavigate();
- const { clearCart } = useCart();
+
 
  const [user, setUser] = useState<User | null>(() => {
    const stored = localStorage.getItem("currentUser");
@@ -291,12 +290,7 @@ const stats = [
  </h2>
 
  <div className="bg-white dark:bg-zinc-900 rounded-2xl shadow-sm divide-y divide-gray-100 dark:divide-zinc-800 overflow-hidden">
- <NavItem
- icon={<MdDelete />}
- label="Clear Cart"
- onClick={clearCart}
- danger
- />
+
  <NavItem
  icon={<CiLogout />}
  label="Logout"

@@ -36,7 +36,15 @@ function App() {
  const shouldHideNavbar =
  hideNavbarRoutes.includes(location.pathname);
 const {showToast} = useToast();
-const [showOfflineBanner, setShowOfflineBanner] = useState(() => !navigator.onLine);
+const [showOfflineBanner, setShowOfflineBanner] = useState(
+ () => !navigator.onLine
+);
+
+const [offlineBannerDismissed, setOfflineBannerDismissed] = useState(false);
+
+const [wasOffline, setWasOffline] = useState(
+ () => !navigator.onLine
+);
 
 const checkOnline = async () => {
  try {
@@ -45,55 +53,102 @@ const checkOnline = async () => {
  cache: "no-store",
  mode: "no-cors",
  });
+
  return true;
  } catch {
  return false;
  }
 };
 
-const handleOnline = useCallback((_event: Event) => {
+const handleOnline = useCallback(
+ (_event: Event) => {
  setShowOfflineBanner(false);
+ setOfflineBannerDismissed(false);
+ setWasOffline(false);
+
  showToast("Welcome back online! ✅", "success");
-}, [showToast]);
+ },
+ [showToast]
+);
 
 const handleOffline = useCallback((_event: Event) => {
+ setWasOffline(true);
+ setOfflineBannerDismissed(false);
  setShowOfflineBanner(true);
-
 }, []);
 
 // Listen to online/offline events
 useEffect(() => {
- window.addEventListener("online", handleOnline as EventListener);
- window.addEventListener("offline", handleOffline as EventListener);
+ window.addEventListener("online", handleOnline);
+ window.addEventListener("offline", handleOffline);
 
  return () => {
- window.removeEventListener("online", handleOnline as EventListener);
- window.removeEventListener("offline", handleOffline as EventListener);
+ window.removeEventListener("online", handleOnline);
+ window.removeEventListener("offline", handleOffline);
  };
 }, [handleOnline, handleOffline]);
 
-// Initial check on mount and periodic check for desktop reliability
+// Initial check and periodic connection check
 useEffect(() => {
  const checkConnection = async () => {
  const isOnline = await checkOnline();
- setShowOfflineBanner(!isOnline);
+
+ if (isOnline) {
+ // We have reconnected
+ if (wasOffline) {
+ setShowOfflineBanner(false);
+ setOfflineBannerDismissed(false);
+ setWasOffline(false);
+ }
+ } else {
+ // We are offline
+ setWasOffline(true);
+
+ // Only show banner if user hasn't dismissed it
+ if (!offlineBannerDismissed) {
+ setShowOfflineBanner(true);
+ }
+ }
  };
 
  checkConnection();
- 
- // Periodic check every 5 seconds for desktop
+
  const interval = setInterval(checkConnection, 5000);
 
  return () => clearInterval(interval);
-}, []);
+}, [offlineBannerDismissed, wasOffline]);
 return (
    <>
 
-{showOfflineBanner && (
- <div className="fixed top-0 left-0 w-full bg-red-600 text-white text-center py-2 md:py-1 z-[100]">
+ {showOfflineBanner && (
+ <div className="fixed top-0 left-0 w-full bg-red-600 text-white text-center py-2 md:py-1 z-[100] flex items-center justify-center gap-3 px-10">
+ <span>
  You are offline ⚠️ Some features may not work
+ </span>
+
+ <button
+ onClick={() => {
+ setShowOfflineBanner(false);
+ setOfflineBannerDismissed(true);
+ }}
+ className="
+ absolute
+ right-3
+ top-1/2
+ -translate-y-1/2
+ text-white
+ text-xl
+ font-bold
+ hover:opacity-70
+ transition
+ cursor-pointer
+ "
+ aria-label="Close offline banner"
+ >
+ ×
+ </button>
  </div>
-)}
+ )}
 
 
  

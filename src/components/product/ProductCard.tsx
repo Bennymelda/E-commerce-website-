@@ -53,6 +53,7 @@ const handleWishlist = (id: string) => {
  return (
  <div
  className="
+
  relative
  group
  w-full
@@ -66,39 +67,45 @@ const handleWishlist = (id: string) => {
    {/* WISHLIST BUTTON */}
  
  {/* IMAGE */}
- <div className="relative">
-  <div className="overflow-hidden  rounded-lg">
+<div className="relative">
+ <div className="overflow-hidden rounded-lg h-56 w-full flex items-center justify-center">
  <img
  src={product.image}
  alt={product.name}
  ref={imageRef}
- className=" img 
- w-full h-[280px] object-cover cursor-pointer
- transition-transform duration-300
+ className="
+ w-full
+ h-full
+ object-contain
+ cursor-pointer
+ transition-transform
+ duration-300
  hover:scale-110
  "
- onClick={()=> navigate(`/product/${product.id}`)}
+ onClick={() => navigate(`/product/${product.id}`)}
  />
  </div>
- <div className="absolute right-1 bottom-2">
-<AddToCartButton product={product} />
+
+ <div className="absolute right-1 bottom-2 ">
+ <AddToCartButton product={product} />
  </div>
-   
- </div>
+</div>
+
+
  
 
  {/* NAME */}
- <h2 className="mt-4  text-lg dark:text-white font-semibold">
+ <h2 className="mt-4  text-md dark:text-white font-semibold">
  {product.name}
  </h2>
 {/* RATING */}
  {product.rating && (
- <div className="mt-2 flex items-center gap-2">
+ <div className="mt-3 flex items-center gap-2">
  <div className="flex text-lg">
  {renderStars(product.rating)}
  </div>
 
- <p className="text-sm text-gray-900 font-semibold">
+ <p className="text-xs text-gray-900 font-semibold">
  {product.rating} (
  {product.reviewsCount})
  </p>
@@ -109,7 +116,7 @@ const handleWishlist = (id: string) => {
  onClick={() => handleWishlist(product.id)}
  className="
  absolute top-5 right-5
- text-xl cursor-pointer
+ text-md md:text-lg cursor-pointer
  bg-white dark:bg-zinc-800
  p-2 rounded-full shadow
  hover:scale-110 active:scale-90
@@ -124,14 +131,14 @@ const handleWishlist = (id: string) => {
 </button>
 
  {/* PRICING */}
- <div className="mt-3 md:flex-row flex md:items-center flex-col gap-2">
- <p className="text-lg font-bold">
+ <div className="mt-2 md:flex-row flex md:items-center flex-col gap-2">
+ <p className="text-md font-bold">
  ${product.price}
  </p>
 
  {hasDiscount && (
  <>
- <p className="text-md text-gray-400 line-through">
+ <p className="text-sm text-gray-400 line-through">
  ${product.oldPrice?.toFixed(2)}
  </p>
 

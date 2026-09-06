@@ -9,8 +9,8 @@ const isLoading=false
  return (
  <section className="mb-20 px-4">
  {/* HEADER */}
- <div className="mb-6">
- <h2 className="text-4xl md:text-5xl font-bold">
+ <div className="mb-10">
+ <h2 className="text-2xl md:text-4xl font-bold">
  Trending Products
  </h2>
 

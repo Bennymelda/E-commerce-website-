@@ -1,4 +1,4 @@
-import { useState,useEffect } from "react";
+import { useState } from "react";
 import { useCart } from "../hooks/useCart";
 import { useToast } from "../hooks/useToast";
 import PaymentMethod from "./PaymentMethod";
@@ -14,10 +14,7 @@ const step = location.search.includes("step=2") ? 2 : 1;
 const { showToast } = useToast();
 
  const { cartItems, clearCart } = useCart();
-useEffect(() => {
- const params = new URLSearchParams(location.search);
- if (params.get("step") === "2") ;
-}, []);
+
  // SHIPPING STATE
  const [form, setForm] = useState({
  fullName: "",

@@ -60,13 +60,46 @@ const activeCategory =
  orderedCategories.find(
  (cat) => cat.slug === selectedCategory
  ) || orderedCategories[0];
+
+const benefits = [
+ {
+ icon: BsLightningCharge,
+ title: "Groceries at Your Door in 90 Minutes",
+ description:
+ "Need groceries now? We pick, pack, and deliver your order fast, so you can spend less time waiting and more time getting things done.",
+ },
+ {
+ icon: CiCircleCheck,
+ title: "Fresh, Organic & Carefully Selected",
+ description:
+ "We source quality produce from trusted farms and choose every item with freshness and quality in mind.",
+ },
+ {
+ icon: GrFormCalendar,
+ title: "Fresh Stock, Every Single Day",
+ description:
+ "Our shelves are restocked daily with fresh produce, so you get groceries that are fresh, not items that have been sitting around for days.",
+ },
+ {
+ icon: VscWorkspaceTrusted,
+ title: "Checkout With Confidence",
+ description:
+ "Your payment is protected with secure checkout and convenient payment options designed to make ordering simple and worry-free.",
+ },
+];
+
+
+
+
+
+
  return (
  <div className=" ">
  
 
 <PromoBanner />
  {/* 🏠 NORMAL CONTENT (ALWAYS VISIBLE) */}
- <div className="flex px-5 items-center justify-center mt-10 mb-15">
+ <div className="flex px-5 items-center justify-center mt-10 mb-5">
 <input
  value={search}
  onChange={(e) => setSearch(e.target.value)}
@@ -111,61 +144,130 @@ const activeCategory =
  <CategorySection category={activeCategory} />
 </div>
 
- <div className="flex gap-5 mx-5 flex-col-reverse md:flex-row justify-between rounded-2xl mb-10 items-center py-10 px-5 md:mx-10 bg-gray-100 shadow-sm border-gray-100 border md:mt-20">
-    <div>
-        <h1 className="text-3xl mt-4 lg:text-5xl font-bold text-green-700">
-            Get up to 20% offer Organic Bundles
-        </h1>
-         
+ <div className="
+ flex
+ gap-8
+ mx-5
+ flex-col-reverse
+ md:flex-row
+ justify-between
+ rounded-2xl
+ mb-10
+ items-center
+ py-8
+ px-5
+ md:px-10
+ bg-gray-100
+ shadow-sm
+ border
+ border-gray-100
+ md:mt-20
+">
+ <div className="w-full md:max-w-xl">
+ <p className="text-green-600 font-semibold text-sm md:text-base mb-2">
+ SAVE MORE ON YOUR EVERYDAY ESSENTIALS
+ </p>
 
-        <p className="text-gray-500 mb-5 mt-1">Fuel your week with our curated selection of essentials</p>
-        
-       <Link to="/products" className="bg-green-600 cursor-pointer font-bold text-lg text-white py-2 px-8 rounded-4xl">
-        Shop now
-       </Link>
-    </div>
-    <div className="lg:w-[600px] w-full">
-        <img src="/image/banner-4.png" alt="" className="w-full h-[300px] rounded-lg object-cover"/>
-    </div>
+ <h1 className="
+ text-3xl
+ lg:text-5xl
+ font-bold
+ leading-tight
+ text-green-700
+ ">
+ Stock Up on Fresh Organic Favorites & Save 20%
+ </h1>
+
+ <p className="
+ text-gray-600
+ text-base
+ md:text-lg
+ leading-relaxed
+ mt-3
+ mb-6
+ max-w-lg
+ ">
+ From fresh produce to everyday essentials, get more of what you love
+ without stretching your budget.
+ </p>
+
+ <Link
+ to="/products"
+ className="
+ inline-block
+ bg-green-600
+ hover:bg-green-700
+ cursor-pointer
+ font-semibold
+ text-base
+ md:text-lg
+ text-white
+ py-3
+ px-8
+ rounded-full
+ transition
+ duration-200
+ "
+ >
+ Shop the Offer
+ </Link>
  </div>
+
+ <div className="lg:w-[600px] w-full">
+ <img
+ src="/image/banner-4.png"
+ alt="Fresh organic groceries"
+ className="
+ w-full
+ h-[250px]
+ md:h-[300px]
+ rounded-lg
+ object-cover
+ "
+ />
+ </div>
+</div>
  {/* 8. WHY CHOOSE US */}
-<section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 mx-5 flex-col mb-15 px-5 py-5 rounded-xl bg-gray-50 mt-20 md:flex-row gap-5">
-    <div className="bg-white shadow-sm flex md:justify-center rounded-2xl md:items-center py-5 px-5 md:px-10 flex-col">
-        <div className="bg-green-600 w-fit px-4 py-4 rounded-xl">
-           <BsLightningCharge className=" text-2xl text-white"/>
+ <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 mx-5 mb-15 px-5 py-5 rounded-xl bg-gray-50 mt-20 gap-5">
+ {benefits.map((benefit, index) => {
+ const Icon = benefit.icon;
 
-        </div>
-        <h3 className="text-2xl md:text-2xl font-semibold mb-1 mt-4">Fast Delivery</h3>
-        <p className="text-md md:text-lg md:text-center">Delivered to your doorstep within 90 minutes.</p>
-    </div>
+ return (
+ <div
+ key={index}
+ className="
+ bg-white
+ shadow-sm
+ flex
+ md:justify-center
+ rounded-2xl
+ md:items-center
+ py-7
+ px-5
+ md:px-8
+ flex-col
+ "
+ >
+ <div className="bg-green-600 w-fit px-4 py-4 rounded-xl">
+ <Icon className="text-xl text-white" />
+ </div>
 
-    <div className="bg-white shadow-sm flex md:justify-center rounded-2xl md:items-center py-5 px-5 md:px-10 flex-col">
-        <div className="bg-green-600 w-fit px-4 py-4 rounded-xl">
-            <CiCircleCheck className="text-2xl text-white"/>
-        </div>
-        <h3 className="text-2xl md:text-2xl font-semibold mb-1 mt-4">100% Organic</h3>
-        <p className="text-md md:text-lg md:text-center">Certified organic produce from trusted farms.</p>
-    </div>
+ <h3 className="text-lg md:text-center text-start md:text-xl font-semibold mb-2 mt-4">
+ {benefit.title}
+ </h3>
 
-    <div className="bg-white shadow-sm flex md:justify-center rounded-2xl md:items-center py-5 px-5 md:px-10 flex-col">
-        <div className="bg-green-600 w-fit px-4 py-4 rounded-xl">
-            <GrFormCalendar className="text-2xl text-white"/>
-        </div>
-        <h3 className="text-2xl md:text-2xl font-semibold mb-1 mt-4">Fresh Daily</h3>
-        <p className="text-md md:text-lg md:text-center">Harvested and stocked every single morning.</p>
-    </div>
+ <p className="text-sm md:text-md md:text-center leading-relaxed text-gray-600">
+ {benefit.description}
+ </p>
+ </div>
+ );
+ })}
+ </section>
 
-    <div className="bg-white  shadow-sm flex md:justify-center rounded-2xl md:items-center py-5 px-5 md:px-10 flex-col">
-        <div className="bg-green-600 w-fit px-4 py-4 rounded-xl">
-            <VscWorkspaceTrusted className="text-2xl text-white"/>
-        </div>
-        <h3 className="text-2xl md:text-2xl font-semibold mb-1 mt-4">Secure Checkout</h3>
-        <p className="text-md md:text-lg md:text-center">Multiple safe payment options available.</p>
-    </div>
-</section>
+
 <section className="mb-10 mx-5 flex rounded-3xl flex-col justify-center  bg-green-50  py-10 px-5">
-    <h2 className="font-bold mb-2 text-2xl md:text-5xl text-center">Get Fresh Deals Weekly</h2>
-    <p className="text-lg mb-10 md:text-xl text-center font-semibold text-gray-600">join our community of conscious eaters and get exclusive offer and halthy recipes</p>
+    <h2 className="font-bold mb-2 text-2xl md:text-4xl text-center">Get Fresh Deals Weekly</h2>
+    <p className="text-lg mb-10 md:text-xl text-center text-gray-600">join our community of conscious eaters and get exclusive offer and halthy recipes</p>
     
     <div className=" flex justify-center items-center gap-2">
         <input  value={email} onChange={(e)=> setEmail(e.target.value)} type="text" placeholder="enter your email" className="focus:outline-none focus:ring-green-600  focus:ring border-gray-300 py-2 md:py-3 px-4 w-[50%] border rounded-4xl"/>

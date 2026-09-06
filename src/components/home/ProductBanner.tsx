@@ -46,50 +46,122 @@ const PromoBanner = () => {
  const banner = banners[index];
 
  return (
- <div className="relative w-full h-[400px] md:h-[600px] overflow-hidden px-2">
+ <div className="relative w-full h-[400px] md:h-[600px] overflow-hidden">
 
- {/* BACKGROUND (NO RE-RENDER FLICKER) */}
+ {/* BACKGROUND */}
  <div
  className="absolute inset-0 bg-cover bg-center transition-all duration-700"
  style={{ backgroundImage: `url(${banner.bgImage})` }}
  />
 
- {/* DARK OVERLAY */}
- <div className="absolute inset-0 bg-black/40" />
+ {/* GRADIENT OVERLAY */}
+ <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-black/10" />
 
- {/* CONTENT (ONLY THIS ANIMATES) */}
+ {/* CONTENT */}
  <motion.div
  key={index}
- initial={{ opacity: 0, x: 50 }}
+ initial={{ opacity: 0, x: 40 }}
  animate={{ opacity: 1, x: 0 }}
- exit={{opacity:0, x:-50}}
- transition={{ duration:1}}
- className="relative  z-10 h-full flex flex-col justify-center px-10 md:px-10 md:w-[600px] text-white"
+ exit={{ opacity: 0, x: -40 }}
+ transition={{ duration: 0.7 }}
+ className="
+ relative
+ z-10
+ h-full
+ flex
+ flex-col
+ justify-center
+ px-6
+ md:px-12
+ lg:px-20
+ text-white
+ max-w-3xl
+ "
  >
- <h2 className="text-3xl md:text-5xl font-bold mb-4">
+ <span className="
+ text-sm
+ md:text-base
+ font-semibold
+ tracking-wide
+ text-green-300
+ mb-3
+ ">
+ FRESH. SIMPLE. DELIVERED.
+ </span>
+
+ <h2 className="
+ text-3xl
+ sm:text-3xl
+ md:text-5xl
+ font-bold
+ leading-tight
+ mb-3
+ max-w-2xl
+ ">
  {banner.title}
  </h2>
 
- <p className="text-white/90 text-lg">
+ <p className="
+ text-base
+ md:text-lg
+ lg:text-xl
+ text-white/90
+ leading-relaxed
+ max-w-xl
+ ">
  {banner.subtitle}
  </p>
 
- <Link to="/products">
- <button className="bg-green-600 mt-6 px-6 py-3 rounded-3xl font-semibold w-fit">
- Shop now
- </button>
+ <Link
+ to="/products"
+ className="
+ mt-7
+ inline-flex
+ items-center
+ justify-center
+ bg-green-600
+ hover:bg-green-700
+ text-white
+ font-semibold
+ px-7
+ py-3
+ rounded-full
+ w-fit
+ transition
+ duration-200
+ "
+ >
+ Shop fresh groceries
  </Link>
  </motion.div>
 
  {/* DESKTOP DOTS */}
- <div className="hidden md:flex absolute bottom-4 left-1/2 -translate-x-1/2 gap-2">
+ <div className="
+ hidden
+ md:flex
+ absolute
+ bottom-6
+ left-1/2
+ -translate-x-1/2
+ gap-2
+ z-20
+ ">
  {banners.map((_, i) => (
  <button
  key={i}
  onClick={() => setIndex(i)}
- className={`w-3 h-3 rounded-full transition ${
- i === index ? "bg-white" : "bg-white/40"
- }`}
+ aria-label={`Go to slide ${i + 1}`}
+ className={`
+ h-2
+ rounded-full
+ transition-all
+ duration-300
+ ${
+ i === index
+ ? "w-8 bg-white"
+ : "w-2 bg-white/50"
+ }
+ `}
  />
  ))}
  </div>
@@ -98,20 +170,51 @@ const PromoBanner = () => {
  <div className="md:hidden">
  <button
  onClick={prev}
- className="absolute left-3 top-1/2 -translate-y-1/2 text-white text-3xl z-20 cursor-pointer"
->
+ aria-label="Previous banner"
+ className="
+ absolute
+ left-3
+ top-1/2
+ -translate-y-1/2
+ text-white
+ text-3xl
+ z-20
+ cursor-pointer
+ bg-black/20
+ hover:bg-black/40
+ rounded-full
+ p-1
+ transition
+ "
+ >
  <MdNavigateBefore />
-</button>
+ </button>
 
-<button
+ <button
  onClick={next}
- className="absolute right-3 top-1/2 -translate-y-1/2 text-white text-3xl z-20 cursor-pointer"
->
+ aria-label="Next banner"
+ className="
+ absolute
+ right-3
+ top-1/2
+ -translate-y-1/2
+ text-white
+ text-3xl
+ z-20
+ cursor-pointer
+ bg-black/20
+ hover:bg-black/40
+ rounded-full
+ p-1
+ transition
+ "
+ >
  <MdNavigateNext />
-</button>
+ </button>
  </div>
+
  </div>
- );
+);
 };
 
 export default PromoBanner;

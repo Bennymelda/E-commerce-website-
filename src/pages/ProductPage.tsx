@@ -3,7 +3,7 @@ import ProductGrid from "../components/product/ProductGrid";
 import { products } from "../data/products";
 import { IoMdClose } from "react-icons/io";
 import Footer from "../components/layout/Footer";
-
+import { Link } from "react-router-dom";
 export default function ProductPage() {
  const [search, setSearch] = useState(() => {
  return localStorage.getItem("productSearch") || "";
@@ -209,21 +209,100 @@ const percent = (maxPrice / 100) * 100;
  {/* PAGE TITLE */}
  <div className="mb-10 ">
     
-    <div className="relative h-[350px] md:h-[400px] rounded-2xl overflow-hidden flex items-center px-5 md:px-10 text-white bg-[url('/image/new.jpg')] bg-cover bg-center md:bg-bottom">
+   <div className="
+ relative
+ h-[350px]
+ md:h-[400px]
+ rounded-2xl
+ overflow-hidden
+ flex
+ md:mt-5
+ items-center
+ px-6
+ md:px-12
+ text-white
+ bg-[url('/image/new.jpg')]
+ bg-cover
+ bg-center
+ md:bg-bottom
+">
 
- <div className="absolute inset-0 bg-black/40" />
+ {/* OVERLAY */}
+ <div className="
+ absolute
+ inset-0
+ bg-gradient-to-r
+ from-black/65
+ via-black/35
+ to-transparent
+ " />
 
- <div className="relative z-10">
- <h1 className="text-3xl  font-bold mb-2 md:text-4xl md:mb-3">
- Organic Fruits Delivered Fast
+ {/* CONTENT */}
+ <div className="
+ relative
+ z-10
+ max-w-xl
+ ">
+
+ <span className="
+ inline-block
+ mb-4
+ text-sm
+ md:text-base
+ font-semibold
+ tracking-wide
+ text-green-300
+ ">
+ FRESH FROM THE FARM
+ </span>
+
+ <h1 className="
+ text-3xl
+ md:text-5xl
+ font-bold
+ leading-tight
+ mb-4
+ ">
+ Better Fruit Starts With Better Choices
  </h1>
 
- <p className="mb-5 text-gray-200">
- Fresh, healthy & affordable
+ <p className="
+ text-base
+ md:text-lg
+ text-white/90
+ leading-relaxed
+ max-w-md
+ mb-6
+ ">
+ Pick your favourites from our fresh selection of juicy,
+ quality fruits and have them delivered straight to your door.
  </p>
+
+ <Link
+ to="/products"
+ className="
+ inline-flex
+ items-center
+ bg-green-600
+ hover:bg-green-700
+ px-7
+ py-3
+ rounded-full
+ font-semibold
+ transition
+ duration-200
+ "
+ >
+ Shop fresh fruits
+ </Link>
 
  </div>
 </div>
+
+
+
+
+
  <div className="flex items-center my-8">
  <div className="flex-1 border-t border-gray-300 dark:border-zinc-700" />
 

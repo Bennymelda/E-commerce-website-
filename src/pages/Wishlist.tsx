@@ -47,7 +47,7 @@ const navigate=useNavigate()
  lg:grid-cols-4
  gap-6
  mb-10
- ">
+">
 
  {wishlistProducts.map((product) => (
  <div
@@ -64,25 +64,35 @@ const navigate=useNavigate()
  >
 
  {/* IMAGE */}
-<div className="relative group">
-
+ <div className="relative group">
+ <div className="
+ overflow-hidden
+ rounded-lg
+ h-60 md:h-48
+ w-full
+ flex
+ items-center
+ justify-center
+ ">
  <img
  src={product.image}
+ alt={product.name}
  className="
- w-full h-60 md:h-48
- object-cover
+ w-full
+ h-full
+ object-contain
  group-hover:scale-105
- transition duration-300
+ transition
+ duration-300
  cursor-pointer
  "
- onClick={()=> navigate(`/product/${product.id}`)}
+ onClick={() => navigate(`/product/${product.id}`)}
  />
+ </div>
 
  {/* DELETE BUTTON */}
  <button
- onClick={() =>
- toggleWishlist(product.id)
- }
+ onClick={() => toggleWishlist(product.id)}
  className="
  absolute top-3 right-3
  bg-white/90 dark:bg-black/60
@@ -98,8 +108,7 @@ const navigate=useNavigate()
  >
  <MdDelete className="text-xl" />
  </button>
-
-</div>
+ </div>
 
  {/* CONTENT */}
  <div className="p-4 space-y-2">
@@ -116,13 +125,11 @@ const navigate=useNavigate()
  ${product.price}
  </p>
 
- 
-
  </div>
  </div>
  ))}
 
- </div>
+</div>
  )}
  <Footer />
  </div>
