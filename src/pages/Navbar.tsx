@@ -259,8 +259,8 @@ to="/cart-page"
  {isActive && (
  <span className="absolute -top-2 w-10 h-0.5 bg-green-600 rounded-full" />
  )}
- <MdHomeFilled  className={isActive ? "text-green-600 text-2xl" : "text-gray-500 text-2xl"} />
- <p className="font-semibold">Home</p>
+ <MdHomeFilled  className={isActive ? "text-green-600 text-xl" : "text-gray-500 text-xl"} />
+ <p className="font-semibold text-sm" >Home</p>
  </>
  )}
 
@@ -277,8 +277,8 @@ to="/cart-page"
  {isActive && (
  <span className="absolute -top-2 w-10 h-0.5 bg-green-600 rounded-full" />
  )}
- <FaStore  className={isActive ? "text-green-600 text-2xl" : "text-gray-500 text-2xl"} />
- <p className="font-semibold">Product</p>
+ <FaStore  className={isActive ? "text-green-600 text-xl" : "text-gray-500 text-xl"} />
+ <p className="font-semibold text-sm">Product</p>
  </>
  )}
 
@@ -296,8 +296,8 @@ to="/cart-page"
  {isActive && (
  <span className="absolute -top-2 w-10 h-0.5 bg-green-600 rounded-full" />
  )}
- <FaRegHeart  className={isActive ? "text-green-600 text-2xl" : "text-gray-500 text-2xl"} />
- <p className="font-semibold">Favourite</p>
+ <FaRegHeart  className={isActive ? "text-green-600 " : "text-gray-500 text-xl"} />
+ <p className="font-semibold text-sm">Favourite</p>
  </>
  )}
  </NavLink>
@@ -313,8 +313,8 @@ to="/cart-page"
  {isActive && (
  <span className="absolute -top-2 w-10 h-0.5 bg-green-600 rounded-full" />
  )}
- <FaRegUser className={isActive ? "text-green-600 text-2xl" : "text-gray-500 text-2xl"} />
- <p className="font-semibold">Profile</p>
+ <FaRegUser className={isActive ? "text-green-600 " : "text-gray-500 text-xl"} />
+ <p className="font-semibold text-sm">Profile</p>
  </>
  )}
  </NavLink>

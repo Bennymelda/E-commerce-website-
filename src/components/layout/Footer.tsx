@@ -10,7 +10,7 @@ const Footer = () => {
 const { categories, setSelectedCategory } =
  useProducts();
  return (
- <footer className="bg-white mb-20 text-gray-300 mt-20">
+ <footer className="bg-gray-50  text-gray-300 mt-20">
 
  {/* TOP SECTION */}
  <div className="max-w-8xl mx-auto px-6 py-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">

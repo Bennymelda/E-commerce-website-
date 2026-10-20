@@ -4,7 +4,7 @@ import type { Product } from "../../types/product.types";
 import ProductGrid from "../product/ProductGrid";
 import { useProducts } from "../../hooks/useProducts";
 import { useEffect, useState } from "react";
-
+import { motion } from "framer-motion";
 type CategorySectionProps = {
   category: Category & { products: Product[] };
 };
@@ -54,29 +54,101 @@ useEffect(() => {
  };
 
  return (
- <section className="mb-12 mt-20 px-4">
- {/* HEADER */}
- <div className="flex items-center justify-between mb-5">
- <h2 className="text-4xl font-bold md:text-4xl">
- {category.name}
- </h2>
+ <motion.section
+  initial={{
+    opacity: 0,
+    y: 50,
+  }}
+  whileInView={{
+    opacity: 1,
+    y: 0,
+  }}
+  viewport={{
+    once: true,
+    amount: 0.15,
+  }}
+  transition={{
+    duration: 0.7,
+    ease: "easeOut",
+  }}
+  className="mb-12 mt-20 px-4"
+>
+  {/* HEADER */}
+  <motion.div
+    initial={{
+      opacity: 0,
+      y: 25,
+    }}
+    whileInView={{
+      opacity: 1,
+      y: 0,
+    }}
+    viewport={{
+      once: true,
+    }}
+    transition={{
+      duration: 0.6,
+      ease: "easeOut",
+    }}
+    className="flex items-center justify-between mb-5"
+  >
+    <h2 className="text-4xl font-bold md:text-4xl">
+      {category.name}
+    </h2>
 
- <button
- onClick={handleToggle}
- className="text-sm font-medium text-green-600"
- >
- {isExpanded
- ? "Show Less"
- : "See All"}
- </button>
- </div>
+    <motion.button
+      onClick={handleToggle}
+      whileHover={{
+        scale: 1.05,
+        x: -3,
+      }}
+      whileTap={{
+        scale: 0.95,
+      }}
+      transition={{
+        type: "spring",
+        stiffness: 400,
+        damping: 15,
+      }}
+      className="
+        text-sm
+        font-medium
+        text-green-600
+        hover:text-green-700
+        transition-colors
+        duration-200
+      "
+    >
+      {isExpanded ? "Show Less" : "See All"}
+    </motion.button>
+  </motion.div>
 
- {/* PRODUCTS */}
- <ProductGrid
- products={displayedProducts}
- loading={isLoading}
- />
- </section>
+  {/* PRODUCTS */}
+  <motion.div
+    initial={{
+      opacity: 0,
+      y: 35,
+    }}
+    whileInView={{
+      opacity: 1,
+      y: 0,
+    }}
+    viewport={{
+      once: true,
+      amount: 0.1,
+    }}
+    transition={{
+      duration: 0.7,
+      delay: 0.15,
+      ease: "easeOut",
+    }}
+  >
+    <ProductGrid
+      products={displayedProducts}
+      loading={isLoading}
+    />
+  </motion.div>
+</motion.section>
  );
 };
 

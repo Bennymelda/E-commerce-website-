@@ -111,28 +111,34 @@ const PromoBanner = () => {
  ">
  {banner.subtitle}
  </p>
+<Link
+  to="/products"
+  className="
+    group
+    mt-7
+    inline-flex
+    items-center
+    justify-center
+    gap-2
+    bg-green-600
+    hover:bg-green-700
+    text-white
+    font-semibold
+    px-7
+    py-3
+    rounded-full
+    w-fit
+    transition-all
+    duration-300
+    hover:-translate-y-1
+    hover:shadow-lg
+    hover:shadow-green-600/25
+  "
+>
+  Shop fresh groceries
 
- <Link
- to="/products"
- className="
- mt-7
- inline-flex
- items-center
- justify-center
- bg-green-600
- hover:bg-green-700
- text-white
- font-semibold
- px-7
- py-3
- rounded-full
- w-fit
- transition
- duration-200
- "
- >
- Shop fresh groceries
- </Link>
+  
+</Link>
  </motion.div>
 
  {/* DESKTOP DOTS */}

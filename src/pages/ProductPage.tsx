@@ -4,6 +4,8 @@ import { products } from "../data/products";
 import { IoMdClose } from "react-icons/io";
 import Footer from "../components/layout/Footer";
 import { Link } from "react-router-dom";
+import { FaSearch } from "react-icons/fa";
+
 export default function ProductPage() {
  const [search, setSearch] = useState(() => {
  return localStorage.getItem("productSearch") || "";
@@ -216,7 +218,7 @@ const percent = (maxPrice / 100) * 100;
  rounded-2xl
  overflow-hidden
  flex
- md:mt-5
+ md:mt-15
  items-center
  px-6
  md:px-12
@@ -770,8 +772,8 @@ By Categories
  <div className="flex flex-col items-center justify-center py-25 text-center">
 
  <div className="text-6xl">
- 🔍
- </div>
+  <FaSearch />
+</div>
 
  <h2 className="text-3xl font-bold mt-5">
  No products found

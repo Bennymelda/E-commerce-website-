@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import AddToCartButton from "../home/AddToCartButton";
 //import { CiHeart } from "react-icons/ci";
 import { FaRegHeart } from "react-icons/fa6";
+import { motion} from "framer-motion";
 //import { useProducts } from "../../context/ProductContextStore";
 type ProductCardProps = {
  product: Product;
@@ -51,18 +52,41 @@ const handleWishlist = (id: string) => {
  }
 };
  return (
- <div
- className="
-
- relative
- group
- w-full
- rounded-xl p-4 shadow-lg
- transition-all duration-300
- hover:shadow-xl hover:-translate-y-1
- bg-white
- dark:bg-zinc-800
- "
+ <motion.div
+  initial={{
+    opacity: 0,
+    y: 40,
+    scale: 0.97,
+  }}
+  whileInView={{
+    opacity: 1,
+    y: 0,
+    scale: 1,
+  }}
+  viewport={{
+    once: true,
+    amount: 0.15,
+  }}
+  whileHover={{
+    y: -6,
+  }}
+  transition={{
+    duration: 0.6,
+    ease: "easeOut",
+  }}
+  className="
+    relative
+    group
+    w-full
+    rounded-xl
+    p-4
+    shadow-lg
+    hover:shadow-xl
+    bg-white
+    dark:bg-zinc-800
+    transition-shadow
+    duration-300
+  "
 >
    {/* WISHLIST BUTTON */}
  
@@ -149,7 +173,7 @@ const handleWishlist = (id: string) => {
 
  
 
- </div>
+ </motion.div>
  );
 };
 
