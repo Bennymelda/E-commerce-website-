@@ -53,133 +53,69 @@ const handleWishlist = (id: string) => {
 };
  return (
  <motion.div
-  variants={{
-    hidden: {
-      opacity: 0,
-      y: 40,
-      scale: 0.98,
-    },
-    visible: {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: {
-        duration: 0.9,
-        ease: "easeOut",
-      },
-    },
-  }}
-  initial="hidden"
-  whileInView="visible"
-  viewport={{
-    once: true,
-    amount: 0.15,
-  }}
-  whileHover={{
-    y: -6,
-  }}
-  className="
-    relative
-    group
-    w-full
-    rounded-xl
-    px-2
-    shadow-md
-    hover:shadow-xl
-    bg-white
-    dark:bg-zinc-800
-    transition-shadow
-    duration-300
-  "
->
-   {/* WISHLIST BUTTON */}
- 
- {/* IMAGE */}
-{/* IMAGE */}
-<div className="relative w-full">
-  <div className="overflow-hidden rounded-t-xl h-75 md:h-70 w-full flex items-center justify-center">
-    <img
-      src={product.image}
-      alt={product.name}
-      ref={imageRef}
-      className="
-        w-full
-        h-full
-        object-cover
-        cursor-pointer
-        transition-transform
-        duration-300
-        hover:scale-110
-      "
-      onClick={() => navigate(`/product/${product.id}`)}
-    />
-  </div>
+ variants={{
+ hidden: { opacity: 0, y: 40, scale: 0.98 },
+ visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.9, ease: "easeOut" } },
+ }}
+ initial="hidden"
+ whileInView="visible"
+ viewport={{ once: true, amount: 0.15 }}
+ whileHover={{ y: -4 }}
+ className="group w-full rounded-2xl bg-white p-2 shadow-md transition-shadow duration-300 hover:shadow-xl dark:bg-zinc-800"
+ >
+{/* IMAGE with overlays */}
+<div className="relative aspect-square w-full overflow-hidden rounded-xl bg-white dark:bg-zinc-700">
+ <img
+ src={product.image}
+ alt={product.name}
+ ref={imageRef}
+ onClick={() => navigate(`/product/${product.id}`)}
+ className="h-full w-full cursor-pointer object-contain p-2 transition-transform duration-300 hover:scale-105"
+ />
 
-  <div className="absolute right-2 bottom-2">
-    <AddToCartButton product={product} />
-  </div>
-</div>
-
-
- 
-<div className="px-3 pb-3">
- {/* NAME */}
- <h2 className="mt-4  text-md dark:text-white font-semibold">
- {product.name}
- </h2>
-{/* RATING */}
- {product.rating && (
- <div className="mt-3 flex items-center gap-2">
- <div className="flex text-lg">
- {renderStars(product.rating)}
- </div>
-
- <p className="text-xs text-gray-900 font-semibold">
- {product.rating} (
- {product.reviewsCount})
- </p>
- </div>
- )}
- 
-<button
+ {/* Heart: top right */}
+ <button
  onClick={() => handleWishlist(product.id)}
- className="
- absolute top-5 right-5
- text-md md:text-lg cursor-pointer
- bg-white dark:bg-zinc-800
- p-2 rounded-full shadow
- hover:scale-110 active:scale-90
- transition-all duration-200
-
- opacity-100 md:opacity-0 md:group-hover:opacity-100
- "
->
- <span className={liked ? "text-red-500" : "text-gray-700"}>
+ aria-label="Toggle wishlist"
+ className="absolute right-2 top-2 rounded-full bg-white p-1.5 text-sm shadow active:scale-90 dark:bg-zinc-800"
+ >
+ <span className={liked ? "text-red-500" : "text-gray-700 dark:text-gray-300"}>
  <FaRegHeart />
  </span>
-</button>
+ </button>
 
- {/* PRICING */}
- <div className="mt-2 md:flex-row flex md:items-center flex-col gap-2">
- <p className="text-md font-bold">
- ${product.price}
+ {/* Cart: bottom right, grows leftward over the image */}
+ <div className="absolute bottom-2 right-2">
+ <AddToCartButton product={product} />
+ </div>
+</div>
+
+<div className="px-1 pb-1 pt-3">
+ <h2 className="truncate text-sm font-semibold dark:text-white">{product.name}</h2>
+
+ {product.rating && (
+ <div className="mt-1 flex items-center gap-1">
+ <div className="flex text-xs">{renderStars(product.rating)}</div>
+ <p className="text-[10px] font-semibold text-gray-900 dark:text-gray-300">
+ {product.rating} ({product.reviewsCount})
  </p>
+ </div>
+ )}
 
+ {/* PRICE: now has the full width to itself */}
+ <div className="mt-2 flex items-baseline gap-2">
+ <p className="text-sm font-bold dark:text-white">${product.price}</p>
  {hasDiscount && (
- <>
- <p className="text-sm text-gray-400 line-through">
+ <p className="text-xs text-gray-400 line-through">
  ${product.oldPrice?.toFixed(2)}
  </p>
-
- 
- </>
  )}
  </div>
 </div>
- 
-
  </motion.div>
- );
+);
+
+
 };
 
 export default React.memo(ProductCard);

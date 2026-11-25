@@ -39,39 +39,36 @@ const itemVariants: Variants = {
 
   return (
    <section className="h-dvh overflow-hidden bg-zinc-900">
-   <div 
-  className="mx-auto grid h-full min-h-0 max-w-7xl grid-rows-[minmax(0,36dvh)_minmax(0,1fr)] items-stretch gap-1   pb-3 sm:pt-8 md:grid-cols-2 md:grid-rows-1 md:items-center md:gap-10 md:px-12 md:py-6" >   {/* Left Image */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9, x: 40 }}
-          animate={{ opacity: 1, scale: 1, x: 0 }}
-          transition={{
-            duration: 1,
-            delay: 0.2,
-            ease: "easeOut",
-          }}
-          className="relative min-h-0 overflow-hidden"
-        
-        >
-          <img
-            src="/welcome-4.jpg"
-            alt="FreshMart fresh produce"
-            className="h-full min-h-0 w-full rounded-b-[1.7rem] object-cover object-center md:h-[min(75dvh,42rem)] md:max-h-full md:rounded-2xl"
-          
-          />
-        </motion.div>
+  <div className="mx-auto grid h-full max-w-7xl grid-rows-[minmax(0,1fr)_auto] md:grid-cols-2 md:grid-rows-1 md:items-center md:gap-10 md:px-12">
+
+   {/* Left Image */}
+       <motion.div
+ initial={{ opacity: 0, scale: 0.9, x: 40 }}
+ animate={{ opacity: 1, scale: 1, x: 0 }}
+ transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
+ className="relative min-h-0 overflow-hidden md:h-[min(75dvh,42rem)]"
+>
+ <img
+ src="/welcome-4.jpg"
+ alt="FreshMart fresh produce"
+ className="absolute inset-0 h-full w-full rounded-b-[1.7rem] object-cover object-center md:rounded-2xl"
+ />
+</motion.div>
 
         {/* Right Content */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          className="mx-auto flex h-full min-h-0 w-full max-w-xl flex-col justify-center py-1 [@media(max-height:_500px)]:py-0 md:py-0"
-        >
+       <motion.div
+ variants={containerVariants}
+ initial="hidden"
+ animate="visible"
+ className="flex w-full max-w-xl flex-col px-5 pb-[max(1rem,env(safe-area-inset-bottom))] pt-5 md:mx-auto md:px-0 md:py-0"
+>
+
+
 
           {/* Heading */}
           <motion.h1
             variants={itemVariants}
-           className="px-4  text-2xl font-bold leading-[1.1] tracking-tight text-white sm:text-3xl md:text-4xl lg:text-5xl [@media(max-height:_500px)]:text-xl sm:[@media(max-height:_500px)]:text-2xl md:[@media(max-height:_500px)]:text-3xl"
+           className="px-4  text-3xl font-semibold leading-[1.1] tracking-tight text-white sm:text-3xl md:text-4xl lg:text-5xl [@media(max-height:_500px)]:text-xl sm:[@media(max-height:_500px)]:text-2xl md:[@media(max-height:_500px)]:text-3xl"
           >
             Fresh Choices,
             <span className="mt-1 block text-[#4ADD82] sm:mt-2">
@@ -117,10 +114,10 @@ className="mt-3 flex items-center justify-center gap-3 [@media(max-height:_500px
        
                 key={page}
                 aria-label={`Go to onboarding page ${page}`}
-                className={`h-3 rounded-full transition-all duration-500 ${
+                className={`h-2 rounded-full transition-all duration-500 ${
                   page === 1
                     ? "w-8 bg-[#4ADD82]"
-                    : "w-3 bg-gray-500 hover:bg-gray-300"
+                    : "w-2 bg-gray-500 hover:bg-gray-300"
                 }`}
               />
   ))}

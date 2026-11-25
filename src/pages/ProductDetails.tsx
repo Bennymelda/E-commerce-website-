@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import { products } from "../data/products";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion, type Variants } from "framer-motion";
 import { useWishlist } from "../hooks/useWishlist";
 import ProductGrid from "../components/product/ProductGrid";
 import { FaRegHeart } from "react-icons/fa6";
@@ -26,12 +26,39 @@ const handleWishlist = (id: string) => {
  showToast("Added to wishlist ❤️", "success");
  }
 };
+/*
  const [selectedImage, setSelectedImage] = useState("");
  const liked = product ? isInWishlist(product.id) : false;
  const activeImage =
   product?.images?.includes(selectedImage)
    ? selectedImage
    : product?.images?.[0] ?? "";
+*/
+const [selectedImage, setSelectedImage] = useState("");
+const [direction] = useState(1);
+
+const liked = product ? isInWishlist(product.id) : false;
+
+const images = product?.images ?? [];
+const activeImage = images.includes(selectedImage)
+ ? selectedImage
+ : images[0] ?? "";
+//const activeIndex = images.indexOf(activeImage);
+
+/*
+const selectImage = (img: string) => {
+ const nextIndex = images.indexOf(img);
+ if (nextIndex === activeIndex) return;
+ setDirection(nextIndex > activeIndex ? 1 : -1);
+ setSelectedImage(img);
+};
+*/
+const slideVariants: Variants = {
+ enter: (dir: number) => ({ x: dir > 0 ? "100%" : "-100%", opacity: 0 }),
+ center: { x: 0, opacity: 1 },
+ exit: (dir: number) => ({ x: dir > 0 ? "-100%" : "100%", opacity: 0 }),
+};
+
 
  const relatedProducts = useMemo(() => {
  if (!product) return [];
@@ -55,35 +82,7 @@ const handleWishlist = (id: string) => {
 
  return (
  <div className="min-h-screen md:pt-28 bg-white dark:bg-black ">
-   {/* 
-<div className="text-sm text-gray-500 mb-6">
- <span
- className="cursor-pointer hover:text-green-600"
- onClick={() => navigate("/")}
- >
- Home
- </span>
-
- {" / "}
-
- <span
- className="cursor-pointer hover:text-green-600"
- onClick={() => navigate("/products")}
- >
- Products
- </span>
-
- {" / "}
-
- <span className="text-green-600 font-medium">
- {product.name}
- </span>
-</div>
- <div className="mb-8 text-sm text-gray-500">
-  {product.name}
-  
- </div>
-*/}
+   
 
 
 
@@ -94,22 +93,29 @@ const handleWishlist = (id: string) => {
  <div className="relative w-full lg:flex-2">
 
   {/* MAIN IMAGE */}
- <motion.div
-  initial={{ opacity: 0, scale: 0.96 }}
-animate={{ opacity: 1, scale: 1 }}
-transition={{
-  duration: 0.8,
-  ease: "easeOut",
-}}
-  className="w-full h-100.5 md:h-150 bg-gray-100 dark:bg-zinc-900 overflow-hidden"
+<motion.div
+ initial={{ opacity: 0, scale: 0.96 }}
+ animate={{ opacity: 1, scale: 1 }}
+ transition={{ duration: 0.8, ease: "easeOut" }}
+ className="relative h-100.5 w-full overflow-hidden bg-gray-100 dark:bg-zinc-900 md:h-150 md:rounded-2xl"
 >
-    <img
-      key={activeImage}
-      src={activeImage}
-      alt={product.name}
-      className="w-full h-full object-cover object-center md:rounded-2xl"
-    />
-  </motion.div>
+ <AnimatePresence initial={false} custom={direction}>
+ <motion.img
+ key={activeImage}
+ src={activeImage}
+ alt={product.name}
+ custom={direction}
+ variants={slideVariants}
+ initial="enter"
+ animate="center"
+ exit="exit"
+ transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+ className="absolute inset-0 h-full w-full object-cover object-center"
+ />
+ </AnimatePresence>
+</motion.div>
+
+
 
   {/* TOP ICONS */}
   <div className="absolute top-5 left-5 right-5 flex items-center justify-between z-10">
@@ -144,6 +150,7 @@ transition={{
   key={img}
  initial={{ opacity: 0, x: 25 }}
 animate={{ opacity: 1, x: 0 }}
+
 transition={{
   duration: 0.6,
   delay: 1.2 + index * 0.18,
@@ -419,9 +426,7 @@ className="
 
     {/* ADD TO CART */}
     <div className="flex-1 md:flex-none md:w-64">
-       <button
-      onClick={() => handleWishlist(product.id)}
-      className="
+      <div className="
         flex
         flex-2
         md:flex-none
@@ -442,13 +447,17 @@ className="
         bg-green-600
         text-white
         dark:bg-zinc-900
-      "
+      " >
+      <p>Add to cart</p>
+       <button
+      onClick={() => handleWishlist(product.id)}
+      
     >
-      Add to cart
+     
 
      <AddToCartButton product={product} />
     </button>
-      
+     </div> 
     </div>
 
 

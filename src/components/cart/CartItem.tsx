@@ -128,160 +128,83 @@ const itemVariants: Variants = {
  className="space-y-5">
 
  {cartItems.map((item) => (
-
  <motion.div
  key={item.id}
  variants={itemVariants}
-
- className="
- bg-white
- dark:bg-zinc-900
- rounded-3xl
- p-4
- md:p-5
- shadow-sm
- flex
- flex-col
- md:flex-row
- gap-2
- "
+ className="flex gap-4 rounded-2xl bg-white p-3 shadow-sm ring-1 ring-black/5 dark:bg-zinc-900 dark:ring-white/10 md:p-4"
  >
-
-{/* IMAGE */}
- <div className="w-[140px] md:w-[150px] md:h-[150px] rounded-2xl overflow-hidden bg-gray-100">
+ {/* IMAGE */}
+ <div className="h-24 w-24 shrink-0 overflow-hidden rounded-xl bg-gray-100 md:h-32 md:w-32">
  <img
  src={item.image}
  alt={item.name}
- className="
- w-full
- h-full
- object-cover
- "
+ className="h-full w-full object-cover"
  />
  </div>
 
  {/* CONTENT */}
- <div className="flex-1 flex flex-col justify-between">
-
- {/* TOP */}
- <div>
-
- <div className="flex justify-between gap-4">
-
- <div>
- <h2 className="text-lg md:text-xl font-bold dark:text-white">
+ <div className="flex min-w-0 flex-1 flex-col justify-between">
+ {/* Name, price, delete */}
+ <div className="flex items-start justify-between gap-2">
+ <div className="min-w-0">
+ <h2 className="truncate text-base font-semibold dark:text-white md:text-lg">
  {item.name}
  </h2>
-
- 
+ <div className="mt-1 flex items-baseline gap-2">
+ <span className="text-sm font-bold text-green-600 md:text-base">
+ ${item.price}
+ </span>
+ {item.oldPrice && (
+ <span className="text-xs text-gray-400 line-through">
+ ${item.oldPrice}
+ </span>
+ )}
+ </div>
  </div>
 
- {/* REMOVE */}
  <button
- onClick={() =>
- removeFromCart(item.id)
- }
- className="
- text-red-500
- text-xl
- cursor-pointer
- h-fit
- "
+ onClick​={() => removeFromCart(item.id)}
+ aria-label="Remove item"
+ className="rounded-full p-2 text-lg text-gray-400 transition-colors hover:bg-red-50 hover:text-red-500 dark:hover:bg-red-500/10"
  >
  <MdDelete />
  </button>
-
  </div>
 
- {/* PRICE */}
- <div className="mt-5 flex items-center gap-3">
-
- <h3 className="text-md md:text-lg font-bold text-green-600">
- ${item.price}
- </h3>
-
- {item.oldPrice && (
- <p className="text-gray-400 text-sm line-through">
- ${item.oldPrice}
- </p>
- )}
-
- </div>
-
- </div>
-
- {/* BOTTOM */}
- <div className="flex flex-col md:flex-row md:items-center justify-between mt-6 gap-5">
-
- {/* QUANTITY */}
- <div className="
- flex
- items-center
- gap-4
- bg-gray-100
- dark:bg-zinc-800
- rounded-full
- px-4
- py-2
- w-fit
- ">
-
+ {/* Stepper + subtotal */}
+ <div className="mt-3 flex items-center justify-between gap-3">
+ <div className="inline-flex items-center gap-1 rounded-full bg-gray-100 p-1 dark:bg-zinc-800">
  <button
- onClick={() =>
- decreaseQuantity(item.id)
- }
- className="
- text-xl
- font-bold
- cursor-pointer
- "
+ onClick={() => decreaseQuantity(item.id)}
+ aria-label="Decrease quantity"
+ className="flex h-7 w-7 items-center justify-center rounded-full bg-white text-base font-bold shadow-sm active:scale-90 dark:bg-zinc-700 dark:text-white"
  >
- -
+ −
  </button>
-
- <span className="font-semibold text-lg">
+ <span className="min-w-6 text-center text-sm font-semibold dark:text-white">
  {item.quantity}
  </span>
-
  <button
- onClick={() =>
- increaseQuantity(item.id)
- }
- className="
- text-xl
- font-bold
- cursor-pointer
- "
+ onClick={() => increaseQuantity(item.id)}
+ aria-label="Increase quantity"
+ className="flex h-7 w-7 items-center justify-center rounded-full bg-green-600 text-base font-bold text-white shadow-sm active:scale-90"
  >
  +
  </button>
-
  </div>
 
- {/* SUBTOTAL */}
- <div className="border-t border-gray-200">
-
- <p className="text-gray-500 mt-2 text-sm">
+ <div className="text-right">
+ <p className="text-[10px] uppercase tracking-wide text-gray-400">
  Subtotal
  </p>
-
- <h3 className="text-lg md:text-xl font-bold dark:text-white">
- $
- {(
- item.price *
- item.quantity
- ).toFixed(2)}
- </h3>
-
+ <p className="text-base font-bold dark:text-white md:text-lg">
+ ${(item.price * item.quantity).toFixed(2)}
+ </p>
  </div>
-
  </div>
-
  </div>
-
  </motion.div>
-
- ))}
+))}
 
  </motion.div>
 
@@ -290,107 +213,62 @@ const itemVariants: Variants = {
  {/* RIGHT SIDE */}
  <div>
 
- <div className="
- bg-white
- dark:bg-zinc-900
- rounded-3xl
- p-6
- shadow-sm
- sticky
- top-25
- ">
-
- <h2 className="text-2xl font-bold mb-8 dark:text-white">
- Order Summary
- </h2>
+ <div className="sticky top-24 rounded-2xl bg-white p-5 shadow-sm ring-1 ring-black/5 dark:bg-zinc-900 dark:ring-white/10 md:p-6 mb-5">
+ <h2 className="text-lg font-bold dark:text-white">Order Summary</h2>
 
  {/* SUMMARY ROWS */}
- <div className="space-y-5">
-
+ <div className="mt-5 space-y-3 text-sm text-gray-500 dark:text-gray-400">
  <div className="flex justify-between">
- <p className="text-gray-500">
- Subtotal
- </p>
-
- <p className="font-semibold dark:text-white">
+ <p>Subtotal</p>
+ <p className="font-medium text-gray-900 dark:text-white">
  ${subtotal.toFixed(2)}
  </p>
  </div>
 
  <div className="flex justify-between">
- <p className="text-gray-500">
- Delivery
- </p>
-
- <p className="font-semibold dark:text-white">
+ <p>Delivery</p>
+ <p className="font-medium text-gray-900 dark:text-white">
  ${deliveryFee.toFixed(2)}
  </p>
  </div>
-
- <div className="border-t pt-5 flex justify-between">
-
- <h3 className="text-xl font-bold dark:text-white">
- Total
- </h3>
-
- <h3 className="text-2xl font-bold text-green-600">
- ${total.toFixed(2)}
- </h3>
-
  </div>
 
+ {/* TOTAL */}
+ <div className="mt-5 flex items-center justify-between rounded-xl bg-green-50 px-4 py-3 dark:bg-green-500/10">
+ <p className="font-semibold dark:text-white">Total</p>
+ <p className="text-xl font-bold text-green-600">${total.toFixed(2)}</p>
  </div>
 
  {/* CHECKOUT BUTTON */}
- <button
- className="
- mt-8
- w-full
- bg-green-600
- hover:bg-green-700
- transition
- text-white
- py-4
- rounded-full
- font-semibold
- text-lg
- cursor-pointer
- "
+ <Link
+ to="/checkout"
+ className="mt-5 block w-full rounded-full bg-green-600 py-3.5 text-center font-semibold text-white shadow-lg shadow-green-600/20 transition hover:bg-green-700 active:scale-[0.98]"
  >
-    <Link to="/checkout">
-    Proceed To Checkout
-    </Link>
- 
- </button>
+ Proceed to Checkout
+ </Link>
 
  {/* TRUST BADGES */}
- <div className="mt-8 space-y-4">
-
+ <div className="mt-5 space-y-3 border-t border-gray-100 pt-5 dark:border-zinc-800">
  <div className="flex items-center gap-3">
- <FaCheck className="text-2xl text-green-600"/>
- <p className="text-gray-500 text-sm">
- Secure checkout
- </p>
+ <FaCheck className="shrink-0 text-sm text-green-600" />
+ <p className="text-xs text-gray-500 dark:text-gray-400">Secure checkout</p>
  </div>
 
  <div className="flex items-center gap-3">
- <span>🚚</span>
- <p className="text-gray-500 text-sm">
+ <span className="w-3.5 shrink-0 text-center text-sm">🚚</span>
+ <p className="text-xs text-gray-500 dark:text-gray-400">
  Fast delivery within 90 mins
  </p>
  </div>
 
  <div className="flex items-center gap-3">
- <span>🌱</span>
- <p className="text-gray-500 text-sm">
+ <span className="w-3.5 shrink-0 text-center text-sm">🌱</span>
+ <p className="text-xs text-gray-500 dark:text-gray-400">
  100% organic guarantee
  </p>
  </div>
-
  </div>
-
- </div>
-
+</div>
  </div>
 
  </div>

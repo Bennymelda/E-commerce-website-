@@ -57,122 +57,88 @@ const textVariants: Variants = {
   },
 };
 const [imagesComplete, setImagesComplete] = useState(false);
-  return (
-    <section className="flex h-dvh w-full flex-col overflow-hidden bg-white px-5 pt-5 pb-3 sm:px-8 md:px-10 md:py-6">
-       <motion.div 
-         variants={imageContainerVariants}
-  initial="hidden"
-  animate="visible"
-  onAnimationComplete={() => setImagesComplete(true)}
+ return (
+ <section className="flex h-dvh w-full flex-col overflow-hidden bg-white px-5 pt-[max(1.25rem,env(safe-area-inset-top))] pb-[max(0.75rem,env(safe-area-inset-bottom))] sm:px-8 md:px-10">
+ {/* Image grid: takes all leftover height */}
+ <motion.div
+ variants={imageContainerVariants}
+ initial="hidden"
+ animate="visible"
+ onAnimationComplete={() => setImagesComplete(true)}
+ className="mx-auto grid min-h-0 w-full max-w-4xl flex-1 grid-cols-3 gap-3 md:gap-5"
+ >
+ {/* Left column (shifted up) */}
+ <div className="flex min-h-0 min-w-0 flex-col gap-3 pb-6">
+ <motion.img variants={imageVariants} src="/image/dry-date-3.jpg" alt=""
+ className="h-0 w-full flex-1 rounded-2xl object-cover" />
+ <motion.img variants={imageVariants} src="/image/fruit-grape-2.jpg" alt=""
+ className="h-0 w-full flex-1 rounded-2xl object-cover" />
+ </div>
 
-     className="mx-auto grid w-full max-w-4xl grid-cols-3 gap-3 md:gap-5 lg:max-w-5xl">
-  <div className="flex min-w-0 flex-col gap-3">
-    <motion.img
-    variants={imageVariants}
-      src="/image/dry-date-3.jpg"
-      alt=""
-     className="h-[17vh] min-h-24 max-h-52 w-full rounded-2xl object-cover sm:h-[20vh] md:h-[30vh]"
-    />
-    <motion.img
-    variants={imageVariants}
-      src="/image/fruit-grape-2.jpg"
-      alt=""
-      className="h-[17vh] min-h-24 max-h-52 w-full rounded-2xl object-cover sm:h-[20vh] md:h-[30vh]"
-    />
-  </div>
+ {/* Middle column (shifted down) */}
+ <div className="flex min-h-0 min-w-0 flex-col gap-3 pt-6">
+ <motion.img variants={imageVariants} src="/image/fruit-pineapple-3.jpg" alt=""
+ className="h-0 w-full flex-1 rounded-2xl object-cover" />
+ <motion.img variants={imageVariants} src="/image/juice-apple-1.jpg" alt=""
+ className="h-0 w-full flex-1 rounded-2xl object-cover" />
+ </div>
 
-  <div className="mt-10 flex min-w-0 flex-col gap-3">
-    <motion.img
-    variants={imageVariants}
-      src="/image/fruit-pineapple-3.jpg"
-      alt=""
-      className="h-[17vh] min-h-24 max-h-52 w-full rounded-2xl object-cover sm:h-[20vh] md:h-[30vh]"
-    />
-    <motion.img
-    variants={imageVariants}
-      src="/image/juice-apple-1.jpg"
-      alt=""
-      className="h-[17vh] min-h-24 max-h-52 w-full rounded-2xl object-cover sm:h-[20vh] md:h-[30vh]"
-    />
-  </div>
+ {/* Right column (shifted up) */}
+ <div className="flex min-h-0 min-w-0 flex-col gap-3 pb-6">
+ <motion.img variants={imageVariants} src="/image/juice-orange-3.webp" alt=""
+ className="h-0 w-full flex-1 rounded-2xl object-cover" />
+ <motion.img variants={imageVariants} src="/image/smoothie-blueberry-3.jpg" alt=""
+ className="h-0 w-full flex-1 rounded-2xl object-cover" />
+ </div>
+ </motion.div>
 
-  <div className="flex min-w-0 flex-col gap-3">
-    <motion.img
-    variants={imageVariants}
-      src="/image/juice-orange-3.webp"
-      alt=""
-      className="h-[17vh] min-h-24 max-h-52 w-full rounded-2xl object-cover sm:h-[20vh] md:h-[30vh]"
-    />
-    <motion.img
-    variants={imageVariants}
-      src="/image/smoothie-blueberry-3.jpg"
-      alt=""
-      className="h-[17vh] min-h-24 max-h-52 w-full rounded-2xl object-cover sm:h-[20vh] md:h-[30vh]"
-    />
-  </div>
-</motion.div>
-      {/* Text Content */}
-    <motion.div
-   variants={contentContainerVariants}
-  initial="hidden"
-  animate={imagesComplete ? "visible" : "hidden"}
-  className="pt-6 text-center mt-4"
->
-  <motion.h1
-    variants={textVariants}
-    className="text-3xl font-bold text-black sm:text-4xl"
-  >
-    Freshness You'll{" "}
-    <span className="text-green-600">Love.</span>
-  </motion.h1>
+ {/* Text: natural height */}
+ <motion.div
+ variants={contentContainerVariants}
+ initial="hidden"
+ animate={imagesComplete ? "visible" : "hidden"}
+ className="shrink-0 pt-5 text-center"
+ >
+ <motion.h1 variants={textVariants}
+ className="text-2xl font-bold text-black sm:text-4xl">
+ Freshness You'll <span className="text-green-600">Love.</span>
+ </motion.h1>
 
-  <motion.p
-    variants={textVariants}
-    className="mx-auto mt-3 max-w-lg text-sm leading-6 text-gray-600 sm:text-base"
-  >
-    From juicy fruits to refreshing drinks, discover delicious
-    goodness and make every day a little healthier.
-  </motion.p>
-</motion.div>
+ <motion.p variants={textVariants}
+ className="mx-auto mt-2 max-w-lg text-sm leading-5 text-gray-600 sm:text-base">
+ From juicy fruits to refreshing drinks, discover delicious
+ goodness and make every day a little healthier.
+ </motion.p>
+ </motion.div>
 
-     
+ {/* Button + dots */}
+ <div className="shrink-0">
+ <motion.button
+ variants={textVariants}
+ initial="hidden"
+ animate={imagesComplete ? "visible" : "hidden"}
+ transition={{ delay: 0.9, duration: 0.6 }}
+ onClick={onComplete}
+ className="mx-auto mt-5 flex w-full max-w-xl items-center justify-center gap-3 rounded-full bg-green-600 px-7 py-4 font-semibold text-white shadow-lg shadow-[#408A71]/20 transition-colors hover:bg-green-700"
+ >
+ Explore FreshMart
+ <FaArrowRight size={20} />
+ </motion.button>
 
-      {/* Bottom Navigation */}
-      <div className="flex flex-col items-center gap-5 pb-3 ">
-        
-<div className=" px-6 w-full text-center items-center flex justify-center">
-       <motion.button
-  variants={textVariants}
-  initial="hidden"
-  animate={imagesComplete ? "visible" : "hidden"}
-  transition={{ delay: 0.9, duration: 0.6 }}
-  onClick={onComplete}
-  className="mt-6 flex w-full items-center  justify-center gap-4 rounded-full bg-green-600 px-7 py-3 font-semibold text-white shadow-lg shadow-[#408A71]/20 transition-colors hover:bg-green-700"
->
-  Explore FreshMart
-  <FaArrowRight size={22} />
-</motion.button>
-
-
-       </div> 
-
-       <div className="flex items-center justify-center gap-3">
-          {[1, 2, 3].map((page) => (
-            <button
-              key={page}
-              aria-label={`Onboarding page ${page}`}
-              className={`h-3 rounded-full transition-all duration-500 ${
-                page === 2
-                  ? "w-8 bg-green-600"
-                  : "w-3 bg-gray-400"
-              }`}
-            />
-          ))}
-        </div>
-      </div>
-
-    </section>
-  );
+ <div className="mt-4 flex items-center justify-center gap-3">
+ {[1, 2, 3].map((page) => (
+ <button
+ key={page}
+ aria-label={`Onboarding page ${page}`}
+ className={`h-3 rounded-full transition-all duration-500 ${
+ page === 2 ? "w-8 bg-green-600" : "w-3 bg-gray-400"
+ }`}
+ />
+ ))}
+ </div>
+ </div>
+ </section>
+);
 };
 
 export default ThirdWelcomePage;

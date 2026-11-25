@@ -26,6 +26,7 @@ import ProfilePage from "./pages/Profile";
 import { useToast } from "./hooks/useToast";
 import SecondWelcomePage from "./components/WelcomeFolder/SecondWelcome";
 import ThirdWelcomePage from "./components/WelcomeFolder/ThirdPage";
+import PageTransition from "./pages/PageTransistion";
 
 function App() {
   const location = useLocation();
@@ -255,30 +256,36 @@ const navigate = useNavigate();
 
           <ScrollToTop />
 
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/category/:slug" element={<CategoryPage />} />
-            <Route path="/wishlist" element={<WishlistPage />} />
-            <Route path="/cart" element={<CartDrawer />} />
-            <Route path="/cart-page" element={<CartPage />} />
-            <Route path="/products" element={<ProductPage />} />
-            <Route path="/product/:id" element={<ProductDetails />} />
-            <Route path="/checkout" element={<CheckoutPage />} />
-            <Route path="/order-success" element={<OrderSuccessPage />} />
-            <Route path="/shipping" element={<ShippingForm />} />
-            <Route path="/payment" element={<PaymentMethod />} />
-           <Route
-  path="/profile"
-  element={
-    <ProfilePage
-      onLogout={() => {
-        setCurrentPage(4);
-        navigate("/login");
-      }}
-    />
-  }
-/>
-          </Routes>
+       <div className="overflow-x-clip">
+
+ <Routes location={location} key={location.pathname}>
+ <Route path="/" element={<PageTransition><Home /></PageTransition>} />
+ <Route path="/category/:slug" element={<PageTransition><CategoryPage /></PageTransition>} />
+ <Route path="/wishlist" element={<PageTransition><WishlistPage /></PageTransition>} />
+ <Route path="/cart" element={<PageTransition><CartDrawer /></PageTransition>} />
+ <Route path="/cart-page" element={<PageTransition><CartPage /></PageTransition>} />
+ <Route path="/products" element={<PageTransition><ProductPage /></PageTransition>} />
+ <Route path="/product/:id" element={<PageTransition><ProductDetails /></PageTransition>} />
+ <Route path="/checkout" element={<PageTransition><CheckoutPage /></PageTransition>} />
+ <Route path="/order-success" element={<PageTransition><OrderSuccessPage /></PageTransition>} />
+ <Route path="/shipping" element={<PageTransition><ShippingForm /></PageTransition>} />
+ <Route path="/payment" element={<PageTransition><PaymentMethod /></PageTransition>} />
+ <Route
+ path="/profile"
+ element={
+ <PageTransition>
+ <ProfilePage
+ onLogout={() => {
+ setCurrentPage(4);
+ navigate("/login");
+ }}
+ />
+ </PageTransition>
+ }
+ />
+ </Routes>
+ 
+</div>
 
           <div id="cart-icon"></div>
         </motion.div>

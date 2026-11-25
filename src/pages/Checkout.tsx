@@ -107,7 +107,7 @@ navigate("/checkout?step=2")
 };
 
  return (
-    <div className="flex bg-white md:mt-20 pr-4 pb-10">
+    <div className="  flex bg-white md:mt-20 pr-4 pb-10">
 <div className="hidden md:flex md:flex-col  mt-10 gap-6 mb-10">
 
  {steps.map((label, index) => {
@@ -161,7 +161,7 @@ navigate("/checkout?step=2")
 
  {/* STEP 1 */}
  {step === 1 && (
- <div className="space-y-6">
+ <div className="space-y-6 ">
 <motion.div
       initial={{ opacity: 0, y: 60 }}
       animate={{ opacity: 1, y: 0 }}
@@ -184,14 +184,14 @@ navigate("/checkout?step=2")
  cardName={cardName}
  setCardName={setCardName}
  />
-
+<div className="">
  <button
  onClick={nextStep}
- className="w-full bg-green-600 text-white py-3 cursor-pointer font-semibold rounded-xl"
+ className="w-full  bg-green-600 text-white py-3 cursor-pointer font-semibold rounded-xl"
  >
  Continue to Review
  </button>
-
+</div>
  </div>
  )}
 
@@ -310,73 +310,66 @@ step === 2 && (
 
  {/* RIGHT SIDE - ORDER SUMMARY */}
  <div className="lg:col-span-1">
-
  <motion.div
-  initial={{ opacity: 0, y: 45 }}
-  whileInView={{ opacity: 1, y: 0 }}
-  viewport={{ once: true, amount: 0.2 }}
-  transition={{ duration: 0.9, ease: "easeOut" }}className="bg-white dark:bg-zinc-900 shadow-md rounded-2xl p-6 sticky top-20">
-
- <h3 className="text-lg font-bold mb-6">
- Order Summary
- </h3>
+ initial={{ opacity: 0, y: 45 }}
+ whileInView={{ opacity: 1, y: 0 }}
+ viewport={{ once: true, amount: 0.2 }}
+ transition={{ duration: 0.9, ease: "easeOut" }}
+ className="sticky top-20 rounded-2xl bg-white p-5 shadow-sm ring-1 ring-black/5 dark:bg-zinc-900 dark:ring-white/10 md:p-6"
+ >
+ <h3 className="text-lg font-bold dark:text-white">Order Summary</h3>
 
  {/* CALCULATION */}
- <div className="space-y-3 text-gray-600 dark:text-gray-300">
-
+ <div className="mt-5 space-y-3 text-sm text-gray-500 dark:text-gray-400">
  <div className="flex justify-between">
  <p>Subtotal</p>
- <p>${subtotal.toFixed(2)}</p>
+ <p className="font-medium text-gray-900 dark:text-white">
+ ${subtotal.toFixed(2)}
+ </p>
  </div>
 
  <div className="flex justify-between">
- <p>Delivery Fee</p>
- <p className="text-green-600">
+ <p>Delivery fee</p>
+ <p className="font-medium text-gray-900 dark:text-white">
  ${DELIVERY_FEE.toFixed(2)}
  </p>
  </div>
 
  <div className="flex justify-between">
  <p>Tax</p>
- <p>$0.00</p>
+ <p className="font-medium text-gray-900 dark:text-white">$0.00</p>
+ </div>
  </div>
 
-</div>
-
-<hr className="my-5 text-gray-200" />
-
-<div className="flex justify-between font-bold text-lg">
- <p>Total</p>
- <p className="text-green-600">${total.toFixed(2)}</p>
-</div>
-
- <hr className="my-5  text-gray-200" />
-
-
+ {/* TOTAL */}
+ <div className="mt-5 flex items-center justify-between rounded-xl bg-green-50 px-4 py-3 dark:bg-green-500/10">
+ <p className="font-semibold dark:text-white">Total</p>
+ <p className="text-xl font-bold text-green-600">${total.toFixed(2)}</p>
+ </div>
 
  {/* BUTTONS */}
- <div className="mt-6 gap-3 flex items-center">
-
+ <div className="mt-5 space-y-2">
  <button
- onClick={handlePlaceOrder}
- className="w-full cursor-pointer hover:bg-white bg-green-600 text-white py-3 rounded-xl font-semibold  transition hover:text-black shadow-sm"
+ onClick​={handlePlaceOrder}
+ className="w-full cursor-pointer rounded-full bg-green-600 py-3.5 font-semibold text-white shadow-lg shadow-green-600/20 transition hover:bg-green-700 active:scale-[0.98]"
  >
  Place Order
  </button>
 
  <button
- onClick={prevStep}
- className="w-full hover:bg-green-600 shadow-sm hover:text-white cursor-pointer py-3  rounded-xl font-semibold "
+ onClick​={prevStep}
+ className="w-full cursor-pointer rounded-full py-3 text-sm font-semibold text-gray-600 transition hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-zinc-800"
  >
  Back
  </button>
-
  </div>
 
+ {/* TRUST NOTE */}
+ <p className="mt-4 text-center text-xs text-gray-400">
+ 🔒 Secure checkout · Delivery within 90 mins
+ </p>
  </motion.div>
-
- </div>
-
+</div>
  </div>
 
 </div>
