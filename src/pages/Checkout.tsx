@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import ShippingForm from "./ShippingForm";
 import type { Order } from "../types/order.types";
 import { useLocation } from "react-router-dom";
+import { motion } from "framer-motion";
 export default function CheckoutPage() {
 const location = useLocation();
 const navigate = useNavigate();
@@ -106,7 +107,7 @@ navigate("/checkout?step=2")
 };
 
  return (
-    <div className="flex md:mt-20 pr-4 mb-10">
+    <div className="flex bg-white md:mt-20 pr-4 pb-10">
 <div className="hidden md:flex md:flex-col  mt-10 gap-6 mb-10">
 
  {steps.map((label, index) => {
@@ -161,9 +162,16 @@ navigate("/checkout?step=2")
  {/* STEP 1 */}
  {step === 1 && (
  <div className="space-y-6">
-
+<motion.div
+      initial={{ opacity: 0, y: 60 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{
+        duration: 0.8,
+        ease: "easeOut",
+      }}
+    >
  <ShippingForm form={form} setForm={setForm} />
-
+</motion.div>
  <PaymentMethod
  paymentMethod={paymentMethod}
  setPaymentMethod={setPaymentMethod}
@@ -215,7 +223,12 @@ step === 2 && (
  <div className="lg:col-span-2 space-y-6">
 
  {/* SHIPPING */}
- <div className="bg-white dark:bg-zinc-900 shadow-sm rounded-2xl p-6">
+ <motion.div
+  initial={{ opacity: 0, y: 45 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true, amount: 0.2 }}
+  transition={{ duration: 0.9, ease: "easeOut" }}
+ className="bg-white dark:bg-zinc-900 shadow-sm rounded-2xl p-6">
 
  <h3 className="font-semibold text-lg mb-4">
  Shipping Details
@@ -228,10 +241,14 @@ step === 2 && (
  <p><span className="font-medium">City:</span> {form.city}</p>
  </div>
 
- </div>
+ </motion.div>
 
  {/* PAYMENT */}
- <div className="bg-white dark:bg-zinc-900 shadow-sm rounded-2xl p-6">
+<motion.div
+  initial={{ opacity: 0, y: 45 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true, amount: 0.2 }}
+  transition={{ duration: 0.9, ease: "easeOut" }} className="bg-white dark:bg-zinc-900 shadow-sm rounded-2xl p-6">
 
  <h3 className="font-semibold text-lg mb-4">
  Payment Method
@@ -241,10 +258,14 @@ step === 2 && (
  {paymentMethod || "Not selected"}
  </p>
 
- </div>
+ </motion.div>
 
  {/* ITEMS */}
- <div className="bg-white dark:bg-zinc-900 shadow-sm rounded-2xl p-6">
+ <motion.div
+  initial={{ opacity: 0, y: 45 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true, amount: 0.2 }}
+  transition={{ duration: 0.9, ease: "easeOut" }} className="bg-white dark:bg-zinc-900 shadow-sm rounded-2xl p-6">
 
  <h3 className="font-semibold text-lg mb-4">
  Items in your order
@@ -283,14 +304,18 @@ step === 2 && (
 
  </div>
 
- </div>
+ </motion.div>
 
  </div>
 
  {/* RIGHT SIDE - ORDER SUMMARY */}
  <div className="lg:col-span-1">
 
- <div className="bg-white dark:bg-zinc-900 shadow-md rounded-2xl p-6 sticky top-20">
+ <motion.div
+  initial={{ opacity: 0, y: 45 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true, amount: 0.2 }}
+  transition={{ duration: 0.9, ease: "easeOut" }}className="bg-white dark:bg-zinc-900 shadow-md rounded-2xl p-6 sticky top-20">
 
  <h3 className="text-lg font-bold mb-6">
  Order Summary
@@ -348,7 +373,7 @@ step === 2 && (
 
  </div>
 
- </div>
+ </motion.div>
 
  </div>
 

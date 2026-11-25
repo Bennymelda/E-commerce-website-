@@ -11,8 +11,11 @@ type StoredUser = {
   password: string;
   [key: string]: unknown;
 };
+type LoginPageProps = {
+  onLogin: () => void;
+};
 
-export default function LoginPage() {
+export default function LoginPage({ onLogin }: LoginPageProps) {
  const [email, setEmail] = useState("");
  const [password, setPassword] = useState("");
 
@@ -58,7 +61,8 @@ const handleLogin = async (e: FormEvent) => {
  JSON.stringify(existingUser)
  );
 
- 
+ navigate("/");
+onLogin();
  navigate("/"); // ✅ ONLY HERE
  } catch (error) {
  console.error(error);

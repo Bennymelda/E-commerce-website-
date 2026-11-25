@@ -1,198 +1,298 @@
 
-import { Route, Routes } from "react-router"
-import Home from "./pages/Home"
-import "./index.css"
-import CategoryPage from "./pages/CategoryPage"
-import WishlistPage from "./pages/Wishlist"
-import Navbar from "./pages/Navbar"
-import { motion } from "framer-motion"
-import CartDrawer from "./components/cart/CartDrawer"
-import MiniCart from "./components/cart/MiniCart"
-import CartPage from "./components/cart/CartItem"
-import ProductPage from "./pages/ProductPage"
-import ProductDetails from "./pages/ProductDetails"
-import ScrollToTop from "./components/home/scroll"
-import CheckoutPage from "./pages/Checkout"
-import OrderSuccessPage from "./pages/OrderSuccess"
-import ShippingForm from "./pages/ShippingForm"
-import PaymentMethod from "./pages/PaymentMethod"
-import SigninPage from "./pages/Signup"
-import LoginPage from "./pages/Login"
-import { useLocation } from "react-router-dom";
-import ResetPasswordPage from "./pages/ResetPassword"
-import ProfilePage from "./pages/Profile"
-import {useState,useEffect, useCallback } from "react"
-import { useToast } from "./hooks/useToast"
+import { Route, Routes } from "react-router-dom";
+import Home from "./pages/Home";
+import "./index.css";
+import { useState, useEffect, useCallback } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import Welcome from "./components/WelcomeFolder/WelcomePage";
+import CategoryPage from "./pages/CategoryPage";
+import WishlistPage from "./pages/Wishlist";
+import Navbar from "./pages/Navbar";
+import CartDrawer from "./components/cart/CartDrawer";
+import MiniCart from "./components/cart/MiniCart";
+import CartPage from "./components/cart/CartItem";
+import ProductPage from "./pages/ProductPage";
+import ProductDetails from "./pages/ProductDetails";
+import ScrollToTop from "./components/home/scroll";
+import CheckoutPage from "./pages/Checkout";
+import OrderSuccessPage from "./pages/OrderSuccess";
+import ShippingForm from "./pages/ShippingForm";
+import PaymentMethod from "./pages/PaymentMethod";
+import SigninPage from "./pages/Signup";
+import LoginPage from "./pages/Login";
+import { useLocation, useNavigate } from "react-router-dom";
+import ResetPasswordPage from "./pages/ResetPassword";
+import ProfilePage from "./pages/Profile";
+import { useToast } from "./hooks/useToast";
+import SecondWelcomePage from "./components/WelcomeFolder/SecondWelcome";
+import ThirdWelcomePage from "./components/WelcomeFolder/ThirdPage";
 
 function App() {
- const location = useLocation();
+  const location = useLocation();
+const navigate = useNavigate();
+  const hideNavbarRoutes = [
+    "/login",
+    "/signin",
+    "/reset"
+  ];
 
- const hideNavbarRoutes = [
- "/login",
- "/signin",
- "/reset"
- ];
+  const shouldHideNavbar =
+    hideNavbarRoutes.includes(location.pathname);
 
- const shouldHideNavbar =
- hideNavbarRoutes.includes(location.pathname);
-const {showToast} = useToast();
-const [showOfflineBanner, setShowOfflineBanner] = useState(
- () => !navigator.onLine
-);
+  const { showToast } = useToast();
 
-const [offlineBannerDismissed, setOfflineBannerDismissed] = useState(false);
+  const [showOfflineBanner, setShowOfflineBanner] = useState(
+    () => !navigator.onLine
+  );
 
-const [wasOffline, setWasOffline] = useState(
- () => !navigator.onLine
-);
+  const [offlineBannerDismissed, setOfflineBannerDismissed] =
+    useState(false);
 
-const checkOnline = async () => {
- try {
- await fetch("https://www.google.com/favicon.ico", {
- method: "HEAD",
- cache: "no-store",
- mode: "no-cors",
- });
+  const [wasOffline, setWasOffline] = useState(
+    () => !navigator.onLine
+  );
 
- return true;
- } catch {
- return false;
- }
-};
+  const checkOnline = async () => {
+    try {
+      await fetch("https://www.google.com/favicon.ico", {
+        method: "HEAD",
+        cache: "no-store",
+        mode: "no-cors",
+      });
 
-const handleOnline = useCallback(
- (_event: Event) => {
- setShowOfflineBanner(false);
- setOfflineBannerDismissed(false);
- setWasOffline(false);
+      return true;
+    } catch {
+      return false;
+    }
+  };
 
- showToast("Welcome back online! ✅", "success");
- },
- [showToast]
-);
+  const handleOnline = useCallback(
+    (_event: Event) => {
+      setShowOfflineBanner(false);
+      setOfflineBannerDismissed(false);
+      setWasOffline(false);
 
-const handleOffline = useCallback((_event: Event) => {
- setWasOffline(true);
- setOfflineBannerDismissed(false);
- setShowOfflineBanner(true);
-}, []);
+      showToast("Welcome back online! ✅", "success");
+    },
+    [showToast]
+  );
 
-// Listen to online/offline events
-useEffect(() => {
- window.addEventListener("online", handleOnline);
- window.addEventListener("offline", handleOffline);
+  const handleOffline = useCallback((_event: Event) => {
+    setWasOffline(true);
+    setOfflineBannerDismissed(false);
+    setShowOfflineBanner(true);
+  }, []);
 
- return () => {
- window.removeEventListener("online", handleOnline);
- window.removeEventListener("offline", handleOffline);
- };
-}, [handleOnline, handleOffline]);
+  // Listen to online/offline events
+  useEffect(() => {
+    window.addEventListener("online", handleOnline);
+    window.addEventListener("offline", handleOffline);
 
-// Initial check and periodic connection check
-useEffect(() => {
- const checkConnection = async () => {
- const isOnline = await checkOnline();
+    return () => {
+      window.removeEventListener("online", handleOnline);
+      window.removeEventListener("offline", handleOffline);
+    };
+  }, [handleOnline, handleOffline]);
 
- if (isOnline) {
- // We have reconnected
- if (wasOffline) {
- setShowOfflineBanner(false);
- setOfflineBannerDismissed(false);
- setWasOffline(false);
- }
- } else {
- // We are offline
- setWasOffline(true);
+  // Initial check and periodic connection check
+  useEffect(() => {
+    const checkConnection = async () => {
+      const isOnline = await checkOnline();
 
- // Only show banner if user hasn't dismissed it
- if (!offlineBannerDismissed) {
- setShowOfflineBanner(true);
- }
- }
- };
+      if (isOnline) {
+        if (wasOffline) {
+          setShowOfflineBanner(false);
+          setOfflineBannerDismissed(false);
+          setWasOffline(false);
+        }
+      } else {
+        setWasOffline(true);
 
- checkConnection();
+        if (!offlineBannerDismissed) {
+          setShowOfflineBanner(true);
+        }
+      }
+    };
 
- const interval = setInterval(checkConnection, 5000);
+    checkConnection();
 
- return () => clearInterval(interval);
-}, [offlineBannerDismissed, wasOffline]);
-return (
-   <>
+    const interval = setInterval(checkConnection, 5000);
 
- {showOfflineBanner && (
- <div className="fixed top-0 left-0 w-full bg-red-600 text-white text-center py-2 md:py-1 z-[100] flex items-center justify-center gap-3 px-10">
- <span>
- You are offline ⚠️ Some features may not work
- </span>
+    return () => clearInterval(interval);
+  }, [offlineBannerDismissed, wasOffline]);
 
- <button
- onClick={() => {
- setShowOfflineBanner(false);
- setOfflineBannerDismissed(true);
- }}
- className="
- absolute
- right-3
- top-1/2
- -translate-y-1/2
- text-white
- text-xl
- font-bold
- hover:opacity-70
- transition
- cursor-pointer
- "
- aria-label="Close offline banner"
- >
- ×
- </button>
- </div>
- )}
+  const [currentPage, setCurrentPage] = useState(1);
 
+  useEffect(() => {
+    if (currentPage === 1) {
+      const timer = setTimeout(() => {
+        setCurrentPage(2);
+      }, 3000);
 
- 
+      return () => clearTimeout(timer);
+    }
+  }, [currentPage]);
 
- 
-   <motion.div
- initial={{ opacity: 0 }}
- animate={{ opacity: 1 }}
- exit={{ opacity: 0 }}
->
-   {!shouldHideNavbar && <Navbar />}
-  <ScrollToTop />
-   <Routes>
-   <Route path="/" element={<Home />} />
-   <Route path="/category/:slug" element={<CategoryPage />} />
-   <Route path="/wishlist" element={<WishlistPage />} />
-   <Route path="/cart" element={<CartDrawer />} />
-   <Route path="/cart-page" element={<CartPage />} />
-   <Route path="/products" element={<ProductPage />} />
-    <Route path="/product/:id" element={<ProductDetails />} />
-   <Route path="/checkout" element={<CheckoutPage />} />
-   <Route path="/order-success" element={<OrderSuccessPage />} />
-   <Route path="/shipping" element={<ShippingForm/>} />
-   <Route path="/payment" element={<PaymentMethod />} />
-    <Route path="/signin" element={<SigninPage />} />
-    <Route path="/login" element={<LoginPage/>} />
-   <Route path="/reset" element={<ResetPasswordPage/>} />
-   <Route path="/profile" element={<ProfilePage/>} />
-  
-   </Routes>
- 
-   <div id="cart-icon">
+  return (
+    <>
+      
+      {/* Welcome Pages */}
+      {currentPage <= 3 && (
+        <AnimatePresence mode="sync">
+          {currentPage === 1 && (
+            <Welcome
+              key="welcome"
+              onComplete={() => setCurrentPage(2)}
+            />
+          )}
 
-   </div>
+          {currentPage === 2 && (
+            <SecondWelcomePage
+              key="second-welcome"
+              onGetStarted={() => setCurrentPage(3)}
+            />
+          )}
 
- 
-  
-    </motion.div>
-    <CartDrawer />
-    
-    <MiniCart />
-   </>
-  )
+          {currentPage === 3 && (
+            <ThirdWelcomePage
+              key="third-welcome"
+              onComplete={() => {
+                setCurrentPage(4);
+                if (location.pathname !== "/login") {
+                  window.history.replaceState(null, "", "/login");
+                }
+              }}
+            />
+          )}
+        </AnimatePresence>
+      )}
+
+      {showOfflineBanner && (
+        <div className="fixed top-0 left-0 w-full bg-red-600 text-white text-center py-2 md:py-1 z-[100] flex items-center justify-center gap-3 px-10">
+          <span>
+            You are offline ⚠️ Some features may not work
+          </span>
+
+          <button
+            onClick={() => {
+              setShowOfflineBanner(false);
+              setOfflineBannerDismissed(true);
+            }}
+            className="
+              absolute
+              right-3
+              top-1/2
+              -translate-y-1/2
+              text-white
+              text-xl
+              font-bold
+              hover:opacity-70
+              transition
+              cursor-pointer
+            "
+            aria-label="Close offline banner"
+          >
+            ×
+          </button>
+        </div>
+      )}
+
+      {/* Login, Signup and Reset Password */}
+      {currentPage === 4 && (
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={location.pathname}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -30 }}
+            transition={{ duration: 0.6 }}
+          >
+            <Routes>
+              <Route
+                path="/login"
+                element={
+                  <LoginPage
+                    onLogin={() => {
+                      setCurrentPage(5);
+                    }}
+                  />
+                }
+              />
+
+              <Route
+                path="/signin"
+                element={<SigninPage />}
+              />
+
+              <Route
+                path="/reset"
+                element={<ResetPasswordPage />}
+              />
+
+              <Route
+                path="*"
+                element={
+                  <LoginPage
+                    onLogin={() => {
+                      setCurrentPage(5);
+                    }}
+                  />
+                }
+              />
+            </Routes>
+          </motion.div>
+        </AnimatePresence>
+      )}
+
+      {/* Actual Website */}
+      {currentPage === 5 && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8 }}
+        >
+          {!shouldHideNavbar && <Navbar />}
+
+          <ScrollToTop />
+
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/category/:slug" element={<CategoryPage />} />
+            <Route path="/wishlist" element={<WishlistPage />} />
+            <Route path="/cart" element={<CartDrawer />} />
+            <Route path="/cart-page" element={<CartPage />} />
+            <Route path="/products" element={<ProductPage />} />
+            <Route path="/product/:id" element={<ProductDetails />} />
+            <Route path="/checkout" element={<CheckoutPage />} />
+            <Route path="/order-success" element={<OrderSuccessPage />} />
+            <Route path="/shipping" element={<ShippingForm />} />
+            <Route path="/payment" element={<PaymentMethod />} />
+           <Route
+  path="/profile"
+  element={
+    <ProfilePage
+      onLogout={() => {
+        setCurrentPage(4);
+        navigate("/login");
+      }}
+    />
+  }
+/>
+          </Routes>
+
+          <div id="cart-icon"></div>
+        </motion.div>
+      )}
+
+      {/* Cart Components */}
+      {currentPage === 5 && (
+        <>
+          <CartDrawer />
+          <MiniCart />
+        </>
+      )}
+    </>
+  );
 }
 
-export default App
-
+export default App;

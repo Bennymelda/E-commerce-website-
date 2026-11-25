@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { motion } from "framer-motion";
 import { useWishlist } from "../hooks/useWishlist";
 import { products } from "../data/products";
 import { FaHeart } from "react-icons/fa6";
@@ -16,8 +17,7 @@ const WishlistPage = () => {
  }, [wishlist]);
 const navigate=useNavigate()
  return (
- <div className="min-h-screen md:pt-23 pt-4 px-4 bg-gray-50 dark:bg-black">
-
+<div className="min-h-screen pt-4 md:pt-24 px-4 bg-gray-50 dark:bg-black">
  {/* HEADER */}
  <div className="flex items-center gap-3 mb-8">
 
@@ -50,8 +50,16 @@ const navigate=useNavigate()
 ">
 
  {wishlistProducts.map((product) => (
- <div
+ <motion.div
  key={product.id}
+ initial={{ opacity: 0, y: 35, scale: 0.98 }}
+whileInView={{ opacity: 1, y: 0, scale: 1 }}
+viewport={{ once: true, amount: 0.1 }}
+transition={{
+  duration: 0.8,
+  delay: (wishlistProducts.indexOf(product) % 4) * 0.1,
+  ease: [0.22, 1, 0.36, 1],
+}}
  className="
  bg-white dark:bg-zinc-900
  rounded-2xl
@@ -126,7 +134,7 @@ const navigate=useNavigate()
  </p>
 
  </div>
- </div>
+ </motion.div>
  ))}
 
 </div>

@@ -53,16 +53,24 @@ const handleWishlist = (id: string) => {
 };
  return (
  <motion.div
-  initial={{
-    opacity: 0,
-    y: 40,
-    scale: 0.97,
+  variants={{
+    hidden: {
+      opacity: 0,
+      y: 40,
+      scale: 0.98,
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        duration: 0.9,
+        ease: "easeOut",
+      },
+    },
   }}
-  whileInView={{
-    opacity: 1,
-    y: 0,
-    scale: 1,
-  }}
+  initial="hidden"
+  whileInView="visible"
   viewport={{
     once: true,
     amount: 0.15,
@@ -70,17 +78,13 @@ const handleWishlist = (id: string) => {
   whileHover={{
     y: -6,
   }}
-  transition={{
-    duration: 0.6,
-    ease: "easeOut",
-  }}
   className="
     relative
     group
     w-full
     rounded-xl
-    p-4
-    shadow-lg
+    px-2
+    shadow-md
     hover:shadow-xl
     bg-white
     dark:bg-zinc-800
@@ -91,33 +95,34 @@ const handleWishlist = (id: string) => {
    {/* WISHLIST BUTTON */}
  
  {/* IMAGE */}
-<div className="relative">
- <div className="overflow-hidden rounded-lg h-56 w-full flex items-center justify-center">
- <img
- src={product.image}
- alt={product.name}
- ref={imageRef}
- className="
- w-full
- h-full
- object-contain
- cursor-pointer
- transition-transform
- duration-300
- hover:scale-110
- "
- onClick={() => navigate(`/product/${product.id}`)}
- />
- </div>
+{/* IMAGE */}
+<div className="relative w-full">
+  <div className="overflow-hidden rounded-t-xl h-75 md:h-70 w-full flex items-center justify-center">
+    <img
+      src={product.image}
+      alt={product.name}
+      ref={imageRef}
+      className="
+        w-full
+        h-full
+        object-cover
+        cursor-pointer
+        transition-transform
+        duration-300
+        hover:scale-110
+      "
+      onClick={() => navigate(`/product/${product.id}`)}
+    />
+  </div>
 
- <div className="absolute right-1 bottom-2 ">
- <AddToCartButton product={product} />
- </div>
+  <div className="absolute right-2 bottom-2">
+    <AddToCartButton product={product} />
+  </div>
 </div>
 
 
  
-
+<div className="px-3 pb-3">
  {/* NAME */}
  <h2 className="mt-4  text-md dark:text-white font-semibold">
  {product.name}
@@ -170,7 +175,7 @@ const handleWishlist = (id: string) => {
  </>
  )}
  </div>
-
+</div>
  
 
  </motion.div>

@@ -1,61 +1,110 @@
+
 import { useState, type ReactNode } from "react";
 import { ToastContext } from "./ToastContextStore";
-
+import { FaCheck } from "react-icons/fa6";
+import { FiShoppingBag } from "react-icons/fi";
+import { Link} from "react-router-dom";
 type Toast = {
- id: number;
- message: string;
- type?: "success" | "error";
+  id: number;
+  message: string;
+  type?: "success" | "error";
 };
 
 export const ToastProvider = ({
- children,
+  children,
 }: {
- children: ReactNode;
+  children: ReactNode;
 }) => {
- const [toasts, setToasts] = useState<Toast[]>([]);
+  const [toasts, setToasts] = useState<Toast[]>([]);
 
- const showToast = (
- message: string,
- type: "success" | "error" = "success"
- ) => {
- const id = Date.now();
+  const showToast = (
+    message: string,
+    type: "success" | "error" = "success"
+  ) => {
+    const id = Date.now();
 
- const newToast = { id, message, type };
+    const newToast = { id, message, type };
 
- setToasts((prev) => [...prev, newToast]);
+    setToasts((prev) => [...prev, newToast]);
 
- // AUTO REMOVE AFTER 3s
- setTimeout(() => {
- setToasts((prev) =>
- prev.filter((t) => t.id !== id)
- );
- }, 3000);
- };
+    setTimeout(() => {
+      setToasts((prev) =>
+        prev.filter((t) => t.id !== id)
+      );
+    }, 3000);
+  };
 
+  return (
+    <ToastContext.Provider value={{ showToast }}>
+      {children}
 
- return (
- <ToastContext.Provider value={{ showToast }}>
- {children}
+      {/* TOAST UI */}
+      <div className="fixed top-5 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] sm:w-[420px] z-[100] space-y-3">
 
- {/* TOAST UI */}
- <div className="fixed top-5 right-5 space-y-2 z-50">
- {toasts.map((toast) => (
- <div
- key={toast.id}
- className={`
- px-4 md:px-6 py-3 md:py-5 rounded rounded-l-2xl  text-black shadow-sm
- ${
- toast.type === "error"
- ? "border-red-500 border-l-5 bg-white"
- : "border-green-500 border-l-5 bg-white "
- }
- `}
- >
- {toast.message}
- </div>
- ))}
- </div>
- </ToastContext.Provider>
- );
+        {toasts.map((toast) => (
+          <div
+            key={toast.id}
+            className={`
+              flex items-center justify-between gap-3
+              px-4 py-3
+              rounded-[2rem]
+              shadow-xl
+              text-white
+              animate-in slide-in-from-top-3 fade-in duration-300
+              ${
+                toast.type === "error"
+                  ? "bg-red-600"
+                  : "bg-green-600"
+              }
+            `}
+          >
+            {/* LEFT CONTENT */}
+            <div className="flex items-center gap-3 min-w-0">
+
+              {/* CHECK ICON */}
+              <div className="w-12 h-12 shrink-0 rounded-full bg-white/90 flex items-center justify-center">
+                {toast.type === "error" ? (
+                  <span className="text-red-600 text-xl font-bold">
+                    !
+                  </span>
+                ) : (
+                  <FaCheck className="text-green-600 text-xl" />
+                )}
+              </div>
+
+              {/* MESSAGE */}
+              <div className="min-w-0">
+                
+
+                <p className="text-white/80 text-sm mt-1 truncate">
+                  {toast.message}
+                </p>
+              </div>
+            </div>
+
+            {/* VIEW CART */}
+            {toast.type !== "error" && (
+
+              <Link to="cart-page"
+                className="
+                  shrink-0
+                  flex items-center gap-2
+                  px-4 py-3
+                  rounded-full
+                  bg-black/20
+                  hover:bg-black/30
+                  transition-colors duration-300
+                  text-sm font-semibold
+                  whitespace-nowrap
+                "
+              >
+                <FiShoppingBag className="text-base" />
+                View Cart
+              </Link>
+            )}
+          </div>
+        ))}
+      </div>
+    </ToastContext.Provider>
+  );
 };
-

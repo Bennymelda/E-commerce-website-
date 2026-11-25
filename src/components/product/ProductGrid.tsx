@@ -35,7 +35,8 @@ const ProductGrid = ({ products, loading }: ProductGridProps) => {
 
  return (
  <>
- <div className="grid grid-cols-1 w-full md:grid-cols-3 lg:grid-cols-4 gap-2">
+<div className="grid grid-cols-1To md:grid-cols-3 lg:grid-cols-4 gap-3 w-full">
+ 
  {loading
  ? Array.from({ length: skeletonCount }).map((_, i) => (
  <ProductSkeleton key={i} />

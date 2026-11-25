@@ -1,7 +1,7 @@
 //import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../../hooks/useCart";
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import { useEffect } from "react";
 import { IoClose } from "react-icons/io5";
 const CartDrawer = () => {
@@ -24,6 +24,31 @@ useEffect(() => {
  document.body.style.overflow = "auto";
  };
 }, [isCartOpen]);
+
+const cartVariants: Variants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.2,
+    },
+  },
+};
+
+const itemVariants: Variants = {
+  hidden: {
+    opacity: 0,
+    y: 20,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      ease: "easeOut",
+    },
+  },
+};
+
 
  return (
  <>
@@ -59,15 +84,21 @@ useEffect(() => {
 <IoClose onClick={closeCart} className="text-2xl cursor-pointer" />
  </div>
 
- <div className="p-4  space-y-4 overflow-y-auto flex-1">
+<motion.div
+ variants={cartVariants}
+ initial="hidden"
+ animate={isCartOpen ? "visible" : "hidden"}
+ className="p-4 space-y-4 overflow-y-auto flex-1"
+>
  {cartItems.length === 0 ? (
  <p className="text-gray-500">Cart is empty</p>
  ) : (
  cartItems.map((item) => (
- <div
+<motion.div
  key={item.id}
- className="flex justify-between items-center  pb-2"
- >
+ variants={itemVariants}
+ className="flex justify-between items-center pb-2"
+>
  
  {/* LEFT SIDE */}
  <div className="flex items-center gap-3">
@@ -107,11 +138,11 @@ useEffect(() => {
  +
  </button>
  </div>
- </div>
+ </motion.div>
  ))
  )}
  
- </div>
+ </motion.div>
 
 <div onClick={goToCart} className="bg-green-700 cursor-pointer rounded-xl flex mb-5 justify-center items-center gap-2 py-3 mx-4">
 <p  className=" font-semibold text-lg text-white ">

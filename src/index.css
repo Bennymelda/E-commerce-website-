@@ -69,3 +69,12 @@ background-position: center;
 background-image:url() ;
 background-size: cover;
 }
+
+html,
+body,
+#root {
+  min-height: 100%;
+  margin: 0;
+  background-color: #000;
+}
+

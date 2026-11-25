@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import { motion } from "framer-motion";
 import { BsBank } from "react-icons/bs";
 import { FaRegCreditCard } from "react-icons/fa6";
 
@@ -58,8 +58,16 @@ const PaymentMethod = ({
  }, [paymentMethod]);
 
  return (
- <div className="bg-white dark:bg-zinc-900 p-6 md:p-8 rounded-3xl shadow-sm">
-
+<motion.div
+  initial={{ opacity: 0, y: 40 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true, amount: 0.2 }}
+  transition={{
+    duration: 1,
+    ease: "easeOut",
+  }}
+  className="bg-white dark:bg-zinc-900 p-6 md:p-8 rounded-3xl shadow-sm"
+>
  <h2 className="text-2xl font-bold mb-6 dark:text-white">
  Payment Method
  </h2>
@@ -277,7 +285,7 @@ className="w-full px-4 py-3 rounded-full bg-white focus:ring-1 focus:ring-green-
 
  </div>
 
- </div>
+ </motion.div>
  );
 };
 

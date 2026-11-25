@@ -50,7 +50,7 @@ const OrderSuccessPage = () => {
  className="
  min-h-screen
  bg-gray-50 dark:bg-black
- px-5 py-10 mb-20 md:mt-10
+ px-5 py-10 pb-20 md:pt-10
  flex items-center justify-center
  "
  >

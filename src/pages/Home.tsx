@@ -4,23 +4,80 @@ import TrendingSection from "../components/home/TrendingProducts";
 import { useProducts } from "../hooks/useProducts";
 import ProductGrid from "../components/product/ProductGrid";
 import { useSearch } from "../context/SearchContext";
-import { useMemo,useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { products } from "../data/products";
 import PromoBanner from "../components/home/ProductBanner";
 import { CiCircleCheck } from "react-icons/ci";
 import { GrFormCalendar } from "react-icons/gr";
 import { VscWorkspaceTrusted } from "react-icons/vsc";
-import { BsLightningCharge } from "react-icons/bs";
+import { BsCart3, BsLightningCharge } from "react-icons/bs";
 import Footer from "../components/layout/Footer";
 import { useToast } from "../hooks/useToast";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, useAnimationControls } from "framer-motion";
+import { useHomeAnimation } from "./HomeAnimationContext";
+import { useCart } from "../hooks/useCart";
+import { FaSearch } from "react-icons/fa";
 export default function Home() {
  const { orderedCategories, selectedCategory } = useProducts();
  const { search, setSearch } = useSearch();
 const [email, setEmail] = useState("");
+const searchControls = useAnimationControls();
+const currentHour = new Date().getHours();
 
- const { showToast } = useToast();
+const greeting =
+  currentHour < 5
+    ? "Good night"
+    : currentHour < 12
+    ? "Good morning"
+    : currentHour < 17
+    ? "Good afternoon"
+    : currentHour < 21
+    ? "Good evening"
+    : "Good night";
+const categoriesControls = useAnimationControls();
+const trendingControls = useAnimationControls();
+const productsControls = useAnimationControls();
+const offerControls = useAnimationControls();
+const benefitsControls = useAnimationControls();
+const newsletterControls = useAnimationControls();
+
+const bottomNavControls = useHomeAnimation();
+
+useEffect(() => {
+  const playAnimations = async () => {
+    await searchControls.start({
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.7, ease: "easeOut" },
+    });
+
+    await Promise.all([
+      bannerControls.start("visible"),
+      bottomNavControls.start("visible"),
+    ]);
+
+    await categoriesControls.start("visible");
+
+    await trendingControls.start("visible");
+
+    await productsControls.start("visible");
+
+    await offerControls.start("visible");
+
+    await benefitsControls.start("visible");
+
+    await newsletterControls.start("visible");
+  };
+
+  playAnimations();
+}, []);
+
+const bannerControls = useAnimationControls();
+
+
+
+const { showToast } = useToast();
 
  const handleSubscribe = () => {
 
@@ -88,27 +145,127 @@ const benefits = [
  "Your payment is protected with secure checkout and convenient payment options designed to make ordering simple and worry-free.",
  },
 ];
+ const { totalCartItems } = useCart();
 
+const currentUser = JSON.parse(
+  localStorage.getItem("currentUser") || "null"
+);
 
-
+const userName = currentUser?.name || "Guest";
 
 
 
  return (
- <div className=" ">
- 
+ <div className=" bg-gray-100 lg:pt-25">
 
-<PromoBanner />
+   
+    
+      <div className="lg:hidden flex justify-between items-center py-4 px-4 rounded  bg-gray-100 dark:bg-black ">
+  
+       <div>
+  <p className="text-gray-600">{greeting}</p>
+  <p className="font-semibold text-2xl">
+    {userName}
+  </p>
+</div>
+        
+    <div className="relative bg-green-600  p-2 rounded-full cursor-pointer" >
+   <Link to="cart-page">
+    <BsCart3 className="text-xl text-white dark:text-white" />
+  
+   </Link>
+     
+     
+     
+   
+   {totalCartItems > 0 && (
+   <motion.span
+   key={totalCartItems}
+   initial={{ scale: 0.5 }}
+   animate={{ scale: 1 }}
+   className="absolute -top-2 -right-2 bg-red-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center"
+   >
+   {totalCartItems}
+   </motion.span>
+   )}
+   </div>
+     </div>
+     
+
+<motion.div
+  initial={{ opacity: 0, y: 70 }}
+  animate={searchControls}
+  className="md:hidden flex px-5 items-center justify-center pt-5 md:pt-40 mb-5"
+
+>
+  <div className="relative w-full md:w-[50%]">
+
+    <FaSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
+
+    <input
+      value={search}
+      onChange={(e) => setSearch(e.target.value)}
+      placeholder="Search fruits..."
+      className="
+        w-full
+        bg-white
+        shadow-sm
+        focus:ring-1
+        focus:ring-green-600
+        focus:border-green-600
+        focus:outline-none
+        pl-11
+        pr-4
+        py-3
+        rounded-full
+        border
+        border-gray-200
+      "
+    />
+
+  </div>
+</motion.div>
+<div className="px-2">
+<PromoBanner controls={bannerControls} />
+</div>
+
+<motion.div
+  initial={{ opacity: 0, y: 70 }}
+  animate={searchControls}
+  className="hidden md:flex px-5 items-center justify-center pt-5 md:pt-10 mb-5"
+
+>
+  <div className="relative w-full md:w-[100%] lg:w-[60%]">
+
+    <FaSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
+
+    <input
+      value={search}
+      onChange={(e) => setSearch(e.target.value)}
+      placeholder="Search fruits..."
+      className="
+        w-full
+        bg-white
+        shadow-sm
+        focus:ring-1
+        focus:ring-green-600
+        focus:border-green-600
+        focus:outline-none
+        pl-11
+        pr-4
+        py-3
+        rounded-full
+        border
+        border-gray-200
+      "
+    />
+
+  </div>
+</motion.div>
+
  {/* 🏠 NORMAL CONTENT (ALWAYS VISIBLE) */}
- <div className="flex px-5 items-center justify-center mt-10 mb-5">
-<input
- value={search}
- onChange={(e) => setSearch(e.target.value)}
- placeholder="Search fruits..."
- className="w-full md:w-[80%] focus:ring-1 focus:ring-green-600 focus:bg-white focus:border-green-600 focus:outline-none px-4 bg-gray-100 py-3 rounded-full border border-gray-200 shadow-xm"
- />
- 
- </div>
+ <Categories />
+
 {/* 🔍 SEARCH RESULTS (TOP SECTION) */}
  <div className="mb-5">
 
@@ -139,8 +296,7 @@ const benefits = [
  
  <TrendingSection />
 
- <Categories />
-
+ 
 <div id="products-section">
  <CategorySection category={activeCategory} />
 </div>
@@ -251,6 +407,8 @@ const benefits = [
     />
   </div>
 </motion.div>
+
+
  {/* 8. WHY CHOOSE US */}
  <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 mx-5 mb-15 px-5 py-5 rounded-xl bg-gray-50 mt-20 gap-5">
   {benefits.map((benefit, index) => {

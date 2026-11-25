@@ -8,6 +8,7 @@ import { WishlistProvider } from './context/WishlistContext.tsx'
 import { ToastProvider } from './context/ToastContext.tsx'
 import { CartProvider } from './context/CartContext.tsx'
 import { SearchProvider } from './context/SearchProvider.tsx'
+import { HomeAnimationProvider } from './pages/HomeAnimationContext.tsx'
 
 
 if ('serviceWorker' in navigator && import.meta.env.PROD) {
@@ -17,7 +18,7 @@ if ('serviceWorker' in navigator && import.meta.env.PROD) {
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
-    
+     <HomeAnimationProvider>
     <SearchProvider>
     <CartProvider>
     <ToastProvider>
@@ -29,7 +30,7 @@ createRoot(document.getElementById('root')!).render(
   </ToastProvider>
   </CartProvider>
   </SearchProvider>
-   
+   </HomeAnimationProvider>
     </BrowserRouter>
   
     

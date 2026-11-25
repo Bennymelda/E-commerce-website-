@@ -3,7 +3,6 @@ import ProductGrid from "../components/product/ProductGrid";
 import { products } from "../data/products";
 import { IoMdClose } from "react-icons/io";
 import Footer from "../components/layout/Footer";
-import { Link } from "react-router-dom";
 import { FaSearch } from "react-icons/fa";
 
 export default function ProductPage() {
@@ -206,117 +205,25 @@ const percent = (maxPrice / 100) * 100;
 
 
  return (
- <div className="px-5 md:py-10 min-h-screen ">
+ <div className="px-5 md:pt-30 min-h-screen bg-gray-50">
 
- {/* PAGE TITLE */}
- <div className="mb-10 ">
-    
-   <div className="
- relative
- h-[350px]
- md:h-[400px]
- rounded-2xl
- overflow-hidden
- flex
- md:mt-15
- items-center
- px-6
- md:px-12
- text-white
- bg-[url('/image/new.jpg')]
- bg-cover
- bg-center
- md:bg-bottom
-">
 
- {/* OVERLAY */}
- <div className="
- absolute
- inset-0
- bg-gradient-to-r
- from-black/65
- via-black/35
- to-transparent
- " />
+<div className="lg:hidden flex mb-10 pt-4 justify-between items-center w-full">
+  <div>
+    <p className="text-gray-600 mb-1">Browse</p>
+    <h1 className="text-2xl md:text-2xl font-semibold">Categories</h1>
+  </div>
 
- {/* CONTENT */}
- <div className="
- relative
- z-10
- max-w-xl
- ">
-
- <span className="
- inline-block
- mb-4
- text-sm
- md:text-base
- font-semibold
- tracking-wide
- text-green-300
- ">
- FRESH FROM THE FARM
- </span>
-
- <h1 className="
- text-3xl
- md:text-5xl
- font-bold
- leading-tight
- mb-4
- ">
- Better Fruit Starts With Better Choices
- </h1>
-
- <p className="
- text-base
- md:text-lg
- text-white/90
- leading-relaxed
- max-w-md
- mb-6
- ">
- Pick your favourites from our fresh selection of juicy,
- quality fruits and have them delivered straight to your door.
- </p>
-
- <Link
- to="/products"
- className="
- inline-flex
- items-center
- bg-green-600
- hover:bg-green-700
- px-7
- py-3
- rounded-full
- font-semibold
- transition
- duration-200
- "
- >
- Shop fresh fruits
- </Link>
-
- </div>
+  <div
+    onClick={() => setIsFilterOpen(true)}
+    className="bg-white w-fit py-3 px-3 shadow-sm rounded-lg cursor-pointer"
+  >
+    <FaSearch className="text-xl" />
+  </div>
 </div>
 
 
-
-
-
- <div className="flex items-center my-8">
- <div className="flex-1 border-t border-gray-300 dark:border-zinc-700" />
-
- <span className="px-4 text-2xl font-bold text-green-600 uppercase tracking-wider">
- Product
- </span>
-
- <div className="flex-1 border-t border-gray-300 dark:border-zinc-700" />
-</div>
- </div>
-
- <div className="flex flex-col lg:flex-row gap-10">
+ <div className="flex flex-col lg:flex-row gap-10 ">
 <aside className="lg:w-[280px] hidden lg:block pb-30   w-full bg-white scrollbar-hide  dark:bg-zinc-900  dark:border-zinc-800 rounded-3xl p-5 ">
 
  {/* SEARCH */}
@@ -753,6 +660,7 @@ By Categories
  <section className="flex-1 ">
 
  {/* PRODUCT COUNT */}
+ {/*
  <div className="flex justify-between items-center mb-6">
 <button
  onClick={() => setIsFilterOpen(true)}
@@ -765,7 +673,7 @@ By Categories
  </p>
 
  </div>
-
+*/}
  {/* EMPTY STATE */}
  {filteredProducts.length === 0 ? (
 

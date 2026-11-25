@@ -74,7 +74,11 @@ function NavItem({ icon, label, onClick, danger = false }: NavItemProps) {
   );
 }
 
-export default function ProfilePage() {
+type ProfilePageProps = {
+  onLogout: () => void;
+};
+
+export default function ProfilePage({ onLogout }: ProfilePageProps) {
  const navigate = useNavigate();
 
 
@@ -189,9 +193,9 @@ const stats = [
  };
 
  const logout = () => {
- localStorage.removeItem("currentUser");
- navigate("/login");
- };
+  localStorage.removeItem("currentUser");
+  onLogout();
+};
 
  const getInitials = (n: string) =>
    n

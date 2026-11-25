@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, useAnimationControls } from "framer-motion";
 import { MdNavigateBefore, MdNavigateNext } from "react-icons/md";
 import { Link } from "react-router-dom";
-
 const banners = [
  {
  title: "Hand-Picked Organic Apples",
@@ -24,7 +23,11 @@ const banners = [
  },
 ];
 
-const PromoBanner = () => {
+type PromoBannerProps = {
+  controls: ReturnType<typeof useAnimationControls>;
+};
+
+const PromoBanner = ({ controls }: PromoBannerProps) => {
  const [index, setIndex] = useState(0);
 
  const next = () => {
@@ -46,8 +49,25 @@ const PromoBanner = () => {
  const banner = banners[index];
 
  return (
- <div className="relative w-full h-[400px] md:h-[600px] overflow-hidden">
-
+<motion.div
+  initial={{
+    clipPath: "inset(0 0 100% 0)",
+  }}
+  animate={controls}
+  variants={{
+    hidden: {
+      clipPath: "inset(0 0 100% 0)",
+    },
+    visible: {
+      clipPath: "inset(0 0 0% 0)",
+      transition: {
+        duration: 0.8,
+        ease: [0.65, 0, 0.35, 1],
+      },
+    },
+  }}
+ className="relative w-full h-[300px] md:h-[600px] overflow-hidden rounded-3xl "
+>
  {/* BACKGROUND */}
  <div
  className="absolute inset-0 bg-cover bg-center transition-all duration-700"
@@ -219,7 +239,7 @@ const PromoBanner = () => {
  </button>
  </div>
 
- </div>
+ </motion.div>
 );
 };
 

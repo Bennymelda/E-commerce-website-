@@ -45,10 +45,7 @@ const handleSubmit = async (
  showToast("Email is required", "error");
  return;
  }
-
- const emailRegex =
- /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
  if (!emailRegex.test(email)) {
  showToast(
  "Please enter a valid email address",
@@ -91,7 +88,7 @@ if (userExists) {
  showToast("User already exists", "error");
  return;
 }
-
+/*
 const newUser = {
  name,
  email,
@@ -111,7 +108,7 @@ localStorage.setItem(
  JSON.stringify(newUser)
 );
 setIsLoading(true);
-
+*/
 try {
  await new Promise((resolve) =>
  setTimeout(resolve, 2000)

@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import { products } from "../data/products";
-
+import { motion } from "framer-motion";
 import { useWishlist } from "../hooks/useWishlist";
 import ProductGrid from "../components/product/ProductGrid";
 import { FaRegHeart } from "react-icons/fa6";
@@ -10,6 +10,7 @@ import AddToCartButton from "../components/home/AddToCartButton";
 import { useToast } from "../hooks/useToast";
 import Footer from "../components/layout/Footer";
 import { useNavigate } from "react-router-dom";
+import { IoIosArrowBack } from "react-icons/io";
 export default function ProductDetails() {
  const { id } = useParams();
 const { showToast } = useToast();
@@ -53,7 +54,8 @@ const handleWishlist = (id: string) => {
  }
 
  return (
- <div className="min-h-screen md:mt-22 bg-white dark:bg-black px-5  ">
+ <div className="min-h-screen md:pt-28 bg-white dark:bg-black ">
+   {/* 
 <div className="text-sm text-gray-500 mb-6">
  <span
  className="cursor-pointer hover:text-green-600"
@@ -77,137 +79,194 @@ const handleWishlist = (id: string) => {
  {product.name}
  </span>
 </div>
- {/* BREADCRUMB */}
  <div className="mb-8 text-sm text-gray-500">
   {product.name}
   
  </div>
+*/}
+
+
 
  {/* MAIN SECTION */}
- <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+ <div className="relative w-full lg:flex">
 
  {/* LEFT IMAGES */}
-<div>
+ <div className="relative w-full lg:flex-2">
 
- {/* MAIN IMAGE */}
- <div className="bg-gray-100 dark:bg-zinc-900 rounded-3xl overflow-hidden flex items-center justify-center">
- <img
- key={activeImage}
- src={activeImage}
- alt={product.name}
- className="w-full h-87.5 md:h-125 object-contain"
- />
- </div>
+  {/* MAIN IMAGE */}
+ <motion.div
+  initial={{ opacity: 0, scale: 0.96 }}
+animate={{ opacity: 1, scale: 1 }}
+transition={{
+  duration: 0.8,
+  ease: "easeOut",
+}}
+  className="w-full h-100.5 md:h-150 bg-gray-100 dark:bg-zinc-900 overflow-hidden"
+>
+    <img
+      key={activeImage}
+      src={activeImage}
+      alt={product.name}
+      className="w-full h-full object-cover object-center md:rounded-2xl"
+    />
+  </motion.div>
 
- {/* THUMBNAILS */}
- <div className="flex gap-4 mt-5 overflow-x-auto scrollbar-hide">
- {product.images?.map((img) => (
- <button
- key={img}
- onClick={() => setSelectedImage(img)}
- className={`
- min-w-22.5
- h-22.5
- rounded-2xl
- overflow-hidden
- border-2
- transition
- cursor-pointer
- ${
- selectedImage === img
- ? "border-green-600"
- : "border-transparent"
- }
- `}
- >
- <img
- src={img}
- alt="thumbnail"
- className="w-full h-full object-contain"
- />
- </button>
- ))}
- </div>
+  {/* TOP ICONS */}
+  <div className="absolute top-5 left-5 right-5 flex items-center justify-between z-10">
+
+    {/* BACK ARROW */}
+    <button
+      onClick={() => navigate(-1)}
+      className="bg-white/30 backdrop-blur-md border border-white/20 p-3 rounded-full text-xl hover:bg-white/50 transition"
+    >
+      <IoIosArrowBack className="text-black"/>
+    </button>
+
+    {/* WISHLIST */}
+    <button
+      onClick={() => handleWishlist(product.id)}
+      className="bg-white dark:bg-zinc-800 p-3 rounded-full shadow-md text-xl hover:scale-110 transition"
+    >
+      {liked ? (
+        <FaHeart className="text-red-500" />
+      ) : (
+        <FaRegHeart className="text-gray-700 dark:text-white" />
+      )}
+    </button>
+
+  </div>
+
+  {/* THUMBNAILS ON IMAGE RIGHT */}
+  <div className="absolute right-3 top-1/2 -translate-y-1/2 flex flex-col gap-3 max-h-100 overflow-y-auto scrollbar-hide z-10">
+
+    {product.images?.map((img, index) => (
+<motion.button
+  key={img}
+ initial={{ opacity: 0, x: 25 }}
+animate={{ opacity: 1, x: 0 }}
+transition={{
+  duration: 0.6,
+  delay: 1.2 + index * 0.18,
+  ease: [0.22, 1, 0.36, 1],
+}}
+ 
+  onClick={() => setSelectedImage(img)}
+  className={`shrink-0 w-14 h-16 md:w-20 md:h-20 rounded-xl overflow-hidden border-2 bg-white shadow-md transition ${
+    selectedImage === img
+      ? "border-green-600"
+      : "border-transparent"
+  }`}
+>
+        <img
+          src={img}
+          alt="thumbnail"
+          className="w-full h-full object-cover"
+        />
+      </motion.button>
+    ))}
+
+  </div>
 
 </div>
-
-
-
- 
 
 {/* RIGHT CONTENT */}
- <div>
-
- {/* BADGES */}
- <div className="flex gap-3 flex-wrap mb-4">
- {product.organic && (
- <span className="bg-green-100 text-green-700 px-4 py-1 rounded-full text-sm font-semibold">
- Organic
- </span>
- )}
-
- {product.trending && (
- <span className="bg-orange-100 text-orange-600 px-4 py-1 rounded-full text-sm font-semibold">
- Trending
- </span>
- )}
- </div>
-
+<motion.div
+ initial={{ opacity: 0, y: 60 }}
+animate={{ opacity: 1, y: 0 }}
+transition={{
+  duration: 0.8,
+  delay: 0.4,
+  ease: "easeOut",
+}}
+  className="
+    relative
+    md:flex-2
+    z-20
+    -mt-8
+    px-4
+    py-6
+    bg-white
+    dark:bg-black
+    rounded-t-[1.5rem]
+  "
+>
+<div className="flex justify-between">
+<div>
 <div className="flex gap-4 items-center">
- <h1 className="text-3xl md:text-5xl font-bold dark:text-white mb-4">
+ <h1 className="text-2xl md:text-3xl font-semibold dark:text-white mb-4">
  {product.name}
  </h1>
-{product.discount && (
- <span className="bg-red-100 text-red-600 px-3 py-1 rounded-full font-semibold text-sm">
- -{product.discount}%
- </span>
- )}
+
 </div>
- {/* TITLE */}
-
  {/* RATING */}
- <div className="flex items-center gap-3 mb-5">
- <div className="text-amber-400 text-lg">
- ★★★★★
- </div>
+ 
 
- <p className="text-gray-600 dark:text-gray-300">
- {product.rating} ({product.reviewsCount} reviews)
- </p>
- </div>
+<div className="flex items-center gap-3 mb-5">
 
- {/* PRICE */}
+  {/* STARS */}
+  <div className="text-amber-400 text-lg">
+    ★
+  </div>
+
+  <p className="text-gray-600 font-semibold dark:text-gray-300 text-sm">
+    {product.rating} 
+  </p>
+
+
+  {/* OVERLAPPING CIRCLES */}
+  <div className="flex items-center -space-x-3">
+    <div className="w-6 h-6 rounded-full bg-green-500 border-2 border-white dark:border-black" />
+
+    <div className="w-6 h-6 rounded-full bg-orange-400 border-2 border-white dark:border-black" />
+
+    <div className="w-6 h-6 rounded-full bg-blue-500 border-2 border-white dark:border-black" />
+  </div>
+
+  {/* REVIEW COUNT */}
+  <p className="text-gray-600 dark:text-gray-300 text-sm">
+  +{product.reviewsCount} Reviews
+  </p>
+
+</div>
+
+
+
+
+
+
+
+</div>
+
  <div className="flex items-center gap-4 mb-6 flex-wrap">
- <h2 className="text-4xl font-bold text-green-600">
+ <h2 className="text-xl md:text-2xl font-semibold text-green-600">
  ${product.price}
  </h2>
-
- {product.oldPrice && (
- <p className="text-2xl line-through text-gray-400">
- ${product.oldPrice}
- </p>
- )}
-
  
  </div>
+</div>
+
+
 
  {/* DESCRIPTION */}
- <p className="text-gray-600 dark:text-gray-300 leading-8 mb-8 text-lg">
+ <p className="font-semibold text-lg mb-2">Description</p>
+ <p className="text-gray-600 dark:text-gray-300 leading-8 mb-8 text-sm md:text-lg">
  {product.description}
  </p>
 
  {/* DELIVERY + STOCK */}
- <div className="flex flex-col gap-4 mb-8">
- <div className="flex items-center gap-2">
- <span className="font-semibold">Delivery:</span>
- <span>{product.deliveryTime}</span>
+ <p className="font-semibold text-lg mb-2">Product Details</p>
+ <div className="flex flex-col gap-2 mb-8">
+ <div className="flex items-center gap-2 justify-between md:justify-start">
+ <span className="text-md font-semibold text-gray-700">Delivery:</span>
+ <span className="text-gray-500 text-sm">{product.deliveryTime}</span>
  </div>
 
- <div className="flex items-center gap-2">
- <span className="font-semibold">Stock:</span>
+ <div className="flex items-center gap-2 justify-between md:justify-start">
+ <span className="font-semibold text-gray-700 text-base">Stock:</span>
  <span
  className={`
  font-semibold
+ text-sm
  ${
  product.stock > 0
  ? "text-green-600"
@@ -221,29 +280,13 @@ const handleWishlist = (id: string) => {
  </span>
  </div>
 
- <div className="flex items-center gap-2">
- <span className="font-semibold">Unit:</span>
- <span>{product.unit}</span>
+ <div className="flex items-center gap-2 justify-between md:justify-start">
+ <span className="font-semibold text-gray-700">Unit:</span>
+ <span className="text-gray-500 text-sm">{product.unit}</span>
  </div>
  </div>
 
- {/* ACTION BUTTONS */}
- <div className="flex gap-4 flex-wrap mb-10">
-    <div className="border border-gray-200 rounded-full p-2">
-   <AddToCartButton product={product} />
-    </div>
-
- <button
-onClick={() => handleWishlist(product.id)}
- className="border border-gray-300 dark:border-zinc-700 px-4 py-4 rounded-full text-2xl cursor-pointer"
- >
- {liked ? (
- <FaHeart className="text-red-500" />
- ) : (
- <FaRegHeart />
- )}
- </button>
- </div>
+ 
 
  {/* INGREDIENTS */}
  <div className="mb-10">
@@ -311,7 +354,8 @@ onClick={() => handleWishlist(product.id)}
  </div>
  </div>
  </div>
- </div>
+ </motion.div>
+
  </div>
 
  {/* RELATED PRODUCTS */}
@@ -331,6 +375,120 @@ onClick={() => handleWishlist(product.id)}
  </div>
 
  <Footer />
+
+
+
+
+{/* FIXED ACTION BUTTONS */}
+<motion.div
+ initial={{ opacity: 0, y: 60 }}
+animate={{ opacity: 1, y: 0 }}
+transition={{
+  duration: 0.7,
+  delay: 1.5 + (product.images?.length ?? 0) * 0.15 + 0.6,
+  ease: "easeOut",
+}}
+className="
+
+  fixed
+  bottom-0
+  left-0
+  w-full
+  z-50
+   rounded-t-[1.5rem]
+  bg-white
+  dark:bg-zinc-950
+  border-t
+  border-gray-200
+  dark:border-zinc-800
+  shadow-lg
+  px-4
+  py-3
+  md:px-8
+  lg:px-16
+">
+
+  <div className="
+    flex
+    items-center
+    gap-3
+    max-w-7xl
+    mx-auto
+    md:justify-end
+  ">
+
+    {/* ADD TO CART */}
+    <div className="flex-1 md:flex-none md:w-64">
+       <button
+      onClick={() => handleWishlist(product.id)}
+      className="
+        flex
+        flex-2
+        md:flex-none
+        md:w-64
+        justify-center
+        items-center
+        gap-2
+        whitespace-nowrap
+        border
+        border-gray-300
+        dark:border-zinc-700
+        px-4
+        py-2
+        rounded-full
+        text-sm
+        font-semibold
+        cursor-pointer
+        bg-green-600
+        text-white
+        dark:bg-zinc-900
+      "
+    >
+      Add to cart
+
+     <AddToCartButton product={product} />
+    </button>
+      
+    </div>
+
+
+    {/* FAVOURITE */}
+    <button
+      onClick={() => handleWishlist(product.id)}
+      className="
+        flex
+        flex-1
+        md:flex-none
+        md:w-64
+        justify-center
+        items-center
+        gap-2
+        border
+        border-gray-300
+        dark:border-zinc-700
+        px-4
+        py-4
+        rounded-full
+        text-sm
+        font-semibold
+        cursor-pointer
+        bg-gray-50
+        dark:bg-zinc-900
+      "
+    >
+   
+
+      {liked ? (
+        <FaHeart className="text-red-500 text-xl" />
+      ) : (
+        <FaRegHeart className="text-xl" />
+      )}
+    </button>
+
+  </div>
+</motion.div>
+
+
  </div>
  );
 }

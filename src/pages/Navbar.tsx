@@ -3,13 +3,19 @@ import { useCart } from "../hooks/useCart";
 import { motion } from "framer-motion";
 import { logout } from "../hooks/auth";
 import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import {  MdOutlineHome } from "react-icons/md";
 
-import { MdHomeFilled } from "react-icons/md";
-import { FaRegHeart, FaRegUser, FaStore } from "react-icons/fa6";
 import { BsCart3 } from "react-icons/bs";
+import { FiGrid, FiHeart, FiUser } from "react-icons/fi";
+import { useHomeAnimation } from "./HomeAnimationContext";
 
 const Navbar = () => {
  const { totalCartItems } = useCart();
+const location = useLocation();
+
+const isProductDetailsPage = location.pathname.startsWith("/product/");
+const bottomNavControls = useHomeAnimation();
 const user = JSON.parse(
  localStorage.getItem("currentUser") || "null"
 );
@@ -20,6 +26,8 @@ const user = JSON.parse(
  navigate("/login"); // send user to login page
  };
 const isLoggedIn = !!user;
+
+
  return (
  <>
 
@@ -174,17 +182,22 @@ to="/cart-page"
  </nav>
 
  {/* ================= MOBILE TOP BAR ================= */}
- <div className="md:hidden flex justify-between items-center py-6 px-4 rounded shadow-2xl bg-white dark:bg-black ">
+ {!isProductDetailsPage && (
+   <>
+  
+  
+{/*
+ <div className="lg:hidden flex justify-between items-center py-4 px-4 rounded shadow-2xl bg-white dark:bg-black ">
 
- {/* LOGO */}
+
  <div>
     <img src="/FreshMart-192.png" className="w-30 object-cover h-10" alt="logo design" />
  </div>
 
- {/* CART */}
+
  <div className="flex items-center gap-4">
 
- {/* CART ICON */}
+
   <div className="relative cursor-pointer" >
  <Link to="cart-page">
   <BsCart3 className="text-3xl text-black dark:text-white" />
@@ -244,83 +257,96 @@ to="/cart-page"
 
 
  </div>
-
+ */}
+  </>
+)}
  {/* ================= MOBILE BOTTOM NAV ================= */}
- <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white dark:bg-black shadow-xl rounded-2xl flex justify-around items-center py-4 z-50">
+  
 
- <NavLink
- to="/"
- className={({ isActive }) =>
- isActive ? "text-green-600 flex flex-col items-center scale-110" : "text-gray-700 flex flex-col items-center"
- }
- >
-{({ isActive }) => (
- <>
- {isActive && (
- <span className="absolute -top-2 w-10 h-0.5 bg-green-600 rounded-full" />
- )}
- <MdHomeFilled  className={isActive ? "text-green-600 text-xl" : "text-gray-500 text-xl"} />
- <p className="font-semibold text-sm" >Home</p>
- </>
- )}
+<motion.div
+  initial={{
+    opacity: 0,
+    y: 80,
+  }}
+  animate={bottomNavControls}
+  variants={{
+    hidden: {
+      opacity: 0,
+      y: 80,
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.8,
+        ease: "easeOut",
+      },
+    },
+  }}
+  className="
+    md:hidden fixed bottom-5 left-4 right-4
+    bg-white/90 dark:bg-zinc-900/90
+    backdrop-blur-xl
+    border border-gray-200/60 dark:border-zinc-700/60
+    shadow-2xl rounded-4xl
+    flex justify-around items-center
+    py-3 z-50
+  "
+>
+    {/* HOME */}
+    <NavLink to="/" className="flex items-center justify-center">
+      {({ isActive }) => (
+        <span className={`w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 ${
+          isActive ? "bg-green-600" : "bg-transparent"
+        }`}>
+          <MdOutlineHome className={`text-2xl ${
+            isActive ? "text-white" : "text-gray-500"
+          }`} />
+        </span>
+      )}
+    </NavLink>
 
- </NavLink>
+    {/* PRODUCTS */}
+    <NavLink to="/products" className="flex items-center justify-center">
+      {({ isActive }) => (
+        <span className={`w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 ${
+          isActive ? "bg-green-600" : "bg-transparent"
+        }`}>
+          <FiGrid className={`text-2xl ${
+            isActive ? "text-white" : "text-gray-500"
+          }`} />
+        </span>
+      )}
+    </NavLink>
 
- <NavLink
- to="/products"
- className={({ isActive }) =>
- isActive ? "text-green-600 scale-110 flex flex-col items-center" : "text-gray-700 flex flex-col items-center"
- }
- >
-{({ isActive }) => (
- <>
- {isActive && (
- <span className="absolute -top-2 w-10 h-0.5 bg-green-600 rounded-full" />
- )}
- <FaStore  className={isActive ? "text-green-600 text-xl" : "text-gray-500 text-xl"} />
- <p className="font-semibold text-sm">Product</p>
- </>
- )}
+    {/* FAVOURITE */}
+    <NavLink to="/wishlist" className="flex items-center justify-center">
+      {({ isActive }) => (
+        <span className={`w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 ${
+          isActive ? "bg-green-600" : "bg-transparent"
+        }`}>
+          <FiHeart className={`text-2xl ${
+            isActive ? "text-white" : "text-gray-500"
+          }`} />
+        </span>
+      )}
+    </NavLink>
 
+    {/* PROFILE */}
+    <NavLink to="/profile" className="flex items-center justify-center">
+      {({ isActive }) => (
+        <span className={`w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 ${
+          isActive ? "bg-green-600" : "bg-transparent"
+        }`}>
+          <FiUser className={`text-2xl ${
+            isActive ? "text-white" : "text-gray-500"
+          }`} />
+        </span>
+      )}
+    </NavLink>
 
- </NavLink>
+  </motion.div>
 
- <NavLink
- to="/wishlist"
- className={({ isActive }) =>
- isActive ? "text-green-600 scale-110 flex flex-col items-center" : "text-gray-700 flex flex-col items-center"
- }
- >
-{({ isActive }) => (
- <>
- {isActive && (
- <span className="absolute -top-2 w-10 h-0.5 bg-green-600 rounded-full" />
- )}
- <FaRegHeart  className={isActive ? "text-green-600 " : "text-gray-500 text-xl"} />
- <p className="font-semibold text-sm">Favourite</p>
- </>
- )}
- </NavLink>
-
- <NavLink
- to="/profile"
- className={({ isActive }) =>
- isActive ? "text-green-600 scale-110 flex flex-col items-center" : "text-gray-700 flex flex-col items-center"
- }
- >
-{({ isActive }) => (
- <>
- {isActive && (
- <span className="absolute -top-2 w-10 h-0.5 bg-green-600 rounded-full" />
- )}
- <FaRegUser className={isActive ? "text-green-600 " : "text-gray-500 text-xl"} />
- <p className="font-semibold text-sm">Profile</p>
- </>
- )}
- </NavLink>
- 
-
- </div>
  </>
  );
 };

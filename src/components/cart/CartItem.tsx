@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-
+import { motion, type Variants } from "framer-motion";
 import { useCart } from "../../hooks/useCart";
 import { FaCheck } from "react-icons/fa6";
 
@@ -25,11 +25,35 @@ const CartPage = () => {
 
  const total = subtotal + deliveryFee;
 
- return (
- <div className="min-h-screen md:mt-10 mb-20 bg-gray-50 dark:bg-black px-5 md:px-10 py-10">
+const cartVariants: Variants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.2,
+    },
+  },
+};
 
- {/* PAGE HEADER */}
- <div className="mb-10">
+const itemVariants: Variants = {
+  hidden: {
+    opacity: 0,
+    y: 20,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      ease: "easeOut",
+    },
+  },
+};
+
+ return (
+ <div className="min-h-screen md:pt-10 pb-20 bg-gray-50 dark:bg-black px-5 md:px-10 py-10">
+
+ <div className="mb-10 flex justify-between items-center" >
+ <div >
  <h1 className="text-2xl md:text-4xl font-bold dark:text-white">
  Shopping Cart
  </h1>
@@ -39,6 +63,20 @@ const CartPage = () => {
  </p>
  </div>
 
+ {/* CLEAR CART */}
+ <div className="">
+ <button
+ onClick={clearCart}
+ className="
+ text-red-500
+ font-bold
+ cursor-pointer
+ "
+ >
+ Clear Cart
+ </button>
+ </div>
+</div>
  {cartItems.length === 0 ? (
 
  /* EMPTY STATE */
@@ -80,27 +118,21 @@ const CartPage = () => {
  {/* LEFT SIDE */}
  <div>
 
- {/* CLEAR CART */}
- <div className="flex justify-end mb-5 px-2">
- <button
- onClick={clearCart}
- className="
- text-red-500
- font-bold
- cursor-pointer
- "
- >
- Clear Cart
- </button>
- </div>
+ 
 
  {/* CART ITEMS */}
- <div className="space-y-5">
+<motion.div
+ variants={cartVariants}
+ initial="hidden"
+ animate="visible" 
+ className="space-y-5">
 
  {cartItems.map((item) => (
 
- <div
+ <motion.div
  key={item.id}
+ variants={itemVariants}
+
  className="
  bg-white
  dark:bg-zinc-900
@@ -141,9 +173,7 @@ const CartPage = () => {
  {item.name}
  </h2>
 
- <p className="text-gray-500 mt-2 text-sm md:text-md">
- {item.unit}
- </p>
+ 
  </div>
 
  {/* REMOVE */}
@@ -229,9 +259,9 @@ const CartPage = () => {
  </div>
 
  {/* SUBTOTAL */}
- <div>
+ <div className="border-t border-gray-200">
 
- <p className="text-gray-500 text-sm">
+ <p className="text-gray-500 mt-2 text-sm">
  Subtotal
  </p>
 
@@ -249,11 +279,11 @@ const CartPage = () => {
 
  </div>
 
- </div>
+ </motion.div>
 
  ))}
 
- </div>
+ </motion.div>
 
  </div>
 
